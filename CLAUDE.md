@@ -26,6 +26,7 @@ It does not own:
 
 - `README.md` - stack, stow packages, setup steps
 - `APPROACH.md` - baseline methodology and deviations from Omarchy
+- `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
 
 ## Stow Packages
 
@@ -49,6 +50,13 @@ Neovim is intentionally split:
 
 WSL should consume `dotfiles-wsl` for its overlay instead of stowing `nvim-arch/`.
 
+## Setup Invariants
+
+- `nvim/` and `nvim-arch/` assume the LazyVim starter was cloned into `~/.config/nvim` first
+- Git identity is expected in the untracked local file `~/.config/git/config.local`
+- Nerd Font rendering comes from the client terminal, not the headless Arch host
+- Future shared Linux changes belong here; WSL and Windows-specific changes belong in `dotfiles-wsl`
+
 ## Reference Repos
 
 Reference repos should be cloned locally and used as sync references:
@@ -56,6 +64,7 @@ Reference repos should be cloned locally and used as sync references:
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package
 - `miasma.nvim/` - Miasma color scheme source
+- `yazi/` - Yazi reference repo for configuration, theme, and feature changes
 
 ## Skills
 

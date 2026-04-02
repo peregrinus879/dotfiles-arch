@@ -27,6 +27,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 - Headless Arch baseline, not a full Omarchy desktop.
 - Desktop services, GUI launchers, display manager integration, and Hyprland-specific behavior are intentionally excluded.
+- Nerd Font rendering is a client-terminal concern, not a host package concern, for machines used only over SSH or Mosh.
 
 ### Theme
 
