@@ -47,6 +47,10 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `y()` is added for Yazi cd-on-exit support. Yazi is not part of Omarchy.
 - `mise`-specific shell handling is omitted from the baseline.
 
+### Starship
+
+- The prompt shows `hostname` only during SSH sessions so remote shells are visually distinct from local ones while keeping the local prompt minimal.
+
 ### Tmux dev layout
 
 - `tdl` keeps the local split ratios from this dotfiles setup rather than mirroring Omarchy exactly: 50% editor and 50% AI in the top 85%, with a 15% bottom terminal pane.
