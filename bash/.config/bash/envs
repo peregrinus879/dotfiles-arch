@@ -1,0 +1,9 @@
+# Editor
+export EDITOR="nvim"
+export SUDO_EDITOR="$EDITOR"
+
+# Tools
+export BAT_THEME=ansi
+
+# Path
+export PATH="$HOME/.local/bin:$HOME/.claude/bin:$HOME/.opencode/bin:$PATH"

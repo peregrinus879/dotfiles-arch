@@ -1,0 +1,28 @@
+# Miasma overrides (only fixing readability; inherits terminal colors for the rest)
+
+[mode]
+normal_main = { fg = "#222222", bg = "#78824b", bold = true }
+normal_alt  = { fg = "#c2c2b0", bg = "#333333" }
+select_main = { fg = "#222222", bg = "#b36d43", bold = true }
+select_alt  = { fg = "#b36d43", bg = "#333333" }
+unset_main  = { fg = "#222222", bg = "#685742", bold = true }
+unset_alt   = { fg = "#685742", bg = "#333333" }
+
+[status]
+overall = {}
+perm_sep   = { fg = "#666666" }
+perm_type  = { fg = "#5f875f" }
+perm_read  = { fg = "#c9a554" }
+perm_write = { fg = "#b36d43" }
+perm_exec  = { fg = "#78824b" }
+
+[tabs]
+active   = { fg = "#222222", bg = "#78824b", bold = true }
+inactive = { fg = "#c2c2b0", bg = "#333333" }
+
+[mgr]
+cwd = { fg = "#c9a554" }
+border_style = { fg = "#666666" }
+count_copied   = { fg = "#222222", bg = "#5f875f" }
+count_cut      = { fg = "#222222", bg = "#b36d43" }
+count_selected = { fg = "#222222", bg = "#c9a554" }
