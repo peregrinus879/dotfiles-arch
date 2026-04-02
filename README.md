@@ -4,6 +4,8 @@ Headless Arch Linux dotfiles, adapted from [Omarchy](https://github.com/basecamp
 
 This repo is for making a headless Arch Linux machine look and feel like Omarchy at the terminal layer, without carrying Omarchy's desktop-specific components.
 
+If you also maintain an Arch Linux WSL environment, use `dotfiles-wsl` as a separate overlay on top of this baseline.
+
 ## Stack
 
 - **Shell**: [Bash](https://www.gnu.org/software/bash/)
@@ -162,10 +164,13 @@ nvim
 
 ## Related Repos
 
+Clone these locally if you plan to use `/synchronize` or compare this baseline against upstream references.
+
 - `~/projects/repos/references/omarchy` - upstream Omarchy reference repo
 - `~/projects/repos/references/omarchy-pkgs` - upstream package reference repo
 - `~/projects/repos/references/miasma.nvim` - Miasma theme reference repo
 - `~/projects/repos/references/yazi` - Yazi reference repo
+- `~/projects/repos/dotfiles/dotfiles-wsl` - optional WSL overlay built on top of this baseline
 
 ## Credits
 
