@@ -59,7 +59,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 - Neovim is split into a shared package and an Arch-specific overlay so `options.lua` can differ cleanly across environments.
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
-- `lazyvim.plugins.extras.lang.markdown` is added beyond Omarchy's `omarchy-nvim` baseline.
+- `render-markdown.nvim` is added beyond Omarchy's `omarchy-nvim` baseline as a standalone plugin, using its default upstream setup for headless-safe Markdown rendering inside Neovim.
 - Kept verbatim from `omarchy-nvim`: `transparency.lua`, `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
 
 ### Fastfetch
