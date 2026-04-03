@@ -55,6 +55,8 @@ sudo pacman -S --needed bash-completion bat btop eza fastfetch fd fzf gcc gum gi
 
 Nerd Font support is needed only in the client terminal used to connect to the machine. A headless Arch host does not need a local font package installed for `tmux`, `nvim`, `yazi`, `starship`, or `fastfetch` icons to render correctly over SSH.
 
+Optional: for compatible AMD hosts running local ROCm-backed Ollama, see `OLLAMA-ROCM.md`. That runbook is host-specific reference material, not part of the baseline setup below.
+
 ### 2. Neovim Base
 
 Clone the LazyVim starter first so the shared `nvim/` package and the `nvim-arch/` overlay have a target directory to extend:

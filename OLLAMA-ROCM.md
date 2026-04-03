@@ -163,9 +163,9 @@ The binary is installed at:
 /opt/rocm/bin/rocminfo
 ```
 
-### 7. Add ROCm to PATH and verify detection
+### 7. Verify ROCm detection
 
-Add `/opt/rocm/bin` to `PATH`, then verify:
+If `rocminfo` is not already on `PATH`, call it by full path. Then verify:
 
 ```bash
 rocminfo | grep -E 'Marketing Name|Name:.*gfx'
@@ -190,30 +190,9 @@ This installed:
 - the systemd service
 - the upstream ROCm payload
 
-### 9. Make sure ROCm and Ollama are on PATH
+If `ollama` is not already on `PATH`, call it by full path from `/usr/local/bin/ollama`.
 
-Required PATH entries:
-
-```text
-/opt/rocm/bin
-/usr/local/bin
-```
-
-Verify:
-
-```bash
-command -v rocminfo
-command -v ollama
-```
-
-Expected:
-
-```text
-/opt/rocm/bin/rocminfo
-/usr/local/bin/ollama
-```
-
-### 10. Give the service and user GPU access
+### 9. Give the service and user GPU access
 
 Add both the `ollama` service user and your login user to the `render` and `video` groups:
 
@@ -238,7 +217,7 @@ sudo systemctl restart ollama
 
 Your current shell may need a new login before your own group membership is refreshed.
 
-### 11. Verify upstream Ollama
+### 10. Verify upstream Ollama
 
 ```bash
 sudo systemctl status ollama --no-pager
@@ -269,7 +248,7 @@ In the verified session:
 - the installer created `/etc/systemd/system/ollama.service`
 - the service ran `/usr/local/bin/ollama serve`
 
-### 12. Pull and run Gemma 4
+### 11. Pull and run Gemma 4
 
 ```bash
 ollama pull gemma4:31b
@@ -278,7 +257,7 @@ ollama run gemma4:31b
 
 Exit the interactive chat with `Ctrl+D`, or `Ctrl+C` if needed.
 
-### 13. Verify the API and loaded model
+### 12. Verify the API and loaded model
 
 List installed models:
 
@@ -308,22 +287,6 @@ Expected:
 - `100% GPU`
 - context length `262144`
 
-## Repo Follow-Through
-
-Repo file:
-
-```text
-bash/.config/bash/envs
-```
-
-Repo target state:
-
-```bash
-export PATH="$HOME/.local/bin:$HOME/.claude/bin:$HOME/.opencode/bin:/opt/rocm/bin:/usr/local/bin:$PATH"
-```
-
-This repo already carries the needed PATH additions for both `rocminfo` and the upstream `ollama` binary.
-
 ## Optional OpenCode Integration
 
 If you want to expose the local model in OpenCode later, add an Ollama provider block to your OpenCode config and keep your top-level default model pointed at OpenAI if you do not want Ollama to become the default.
@@ -341,12 +304,6 @@ That works, but it also sets the top-level OpenCode model to:
 ```
 
 Use that only if you want Gemma to become the global default model in OpenCode.
-
-Reliable OpenCode newline fallback inside tmux:
-
-```text
-Ctrl+J
-```
 
 ## Quick Verification
 
