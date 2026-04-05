@@ -163,7 +163,8 @@ nvim
 - `README.md` - repo scope, package ownership, and setup
 - `APPROACH.md` - design rationale and deviations from Omarchy
 - `OLLAMA-ROCM.md` - hardware-specific reference runbook for ROCm-backed Ollama on Arch
-- `CLAUDE.md` - repo-specific assistant context
+- `AGENTS.md` - canonical repo-specific assistant context
+- `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
 
 ## Related Repos
 
