@@ -62,7 +62,7 @@ WSL and other environment-specific repos should extend this baseline through ove
 
 ## Reference Repos
 
-Reference repos should be cloned locally and used as sync references:
+Reference repos should be cloned locally under the canonical `~/projects/repos/references/` root used by `/synchronize`:
 
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package

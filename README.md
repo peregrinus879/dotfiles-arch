@@ -60,14 +60,16 @@ Optional: for preparing a compatible AMD Strix Halo host for ROCm-backed local m
 
 ### 2. Clone
 
-```bash
-git clone https://github.com/peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
+Recommended local layout for this repo family:
+
+```text
+~/projects/repos/dotfiles/dotfiles-arch
 ```
 
-Or with SSH:
+Stow can work from any clone location, but the related docs and cross-repo maintenance workflows assume this layout.
 
 ```bash
-git clone git@github.com:peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
+git clone https://github.com/peregrinus879/dotfiles-arch.git ~/projects/repos/dotfiles/dotfiles-arch
 ```
 
 ### 3. Neovim Base
@@ -130,7 +132,7 @@ rm -f ~/.config/nvim/plugin/after/transparency.lua
 Create symlinks for all packages:
 
 ```bash
-cd ~/path/to/dotfiles-arch
+cd ~/projects/repos/dotfiles/dotfiles-arch
 stow -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -139,7 +141,7 @@ Start a new terminal session, or run `source ~/.bashrc`, for the shell config to
 ### Unstow
 
 ```bash
-cd ~/path/to/dotfiles-arch
+cd ~/projects/repos/dotfiles/dotfiles-arch
 stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -148,7 +150,7 @@ stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 Preview what stow would do without making changes:
 
 ```bash
-cd ~/path/to/dotfiles-arch
+cd ~/projects/repos/dotfiles/dotfiles-arch
 stow -v -n -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
