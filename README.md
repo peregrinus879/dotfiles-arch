@@ -2,9 +2,16 @@
 
 Headless Arch Linux dotfiles, adapted from [Omarchy](https://github.com/basecamp/omarchy), managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-`dotfiles-arch` is the baseline source of truth for shared Linux behavior in terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel while dropping desktop-specific components that do not apply on a headless machine.
+`dotfiles-arch` carries the shared Linux baseline for terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel while dropping desktop-specific components that do not apply on a headless machine.
 
 If you also maintain Arch in WSL, use `dotfiles-wsl` as the additive WSL and Windows-specific overlay on top of this baseline.
+
+## Repo Family
+
+- [`dotfiles-ai`](https://github.com/peregrinus879/dotfiles-ai) - Claude Code and OpenCode global dotfiles, managed with GNU Stow
+- [`dotfiles-arch`](https://github.com/peregrinus879/dotfiles-arch) - Headless Arch Linux dotfiles adapted from Omarchy, managed with GNU Stow
+- [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - WSL (Arch Linux) dotfiles adapted from Omarchy, managed with GNU Stow
+- [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Omarchy personal dotfiles, managed with GNU
 
 ## Stack
 
@@ -166,11 +173,9 @@ nvim
 
 After stowing the baseline:
 
-- Confirm core symlinks exist: `test -L ~/.bashrc && test -L ~/.config/starship.toml && test -L ~/.config/nvim/lua/config/options.lua`
-- Confirm the local Git identity file exists: `test -f ~/.config/git/config.local`
+- Confirm the core symlinks and local Git identity exist: `test -L ~/.bashrc && test -L ~/.config/starship.toml && test -L ~/.config/nvim/lua/config/options.lua && test -f ~/.config/git/config.local`
 - Start a fresh shell and confirm Bash, Starship, and Tmux load without errors.
 - Run `nvim` once and confirm plugins install successfully and Miasma loads.
-- Confirm Miasma is visible in `tmux`, Neovim, Yazi, `btop`, and `fastfetch`.
 
 ## Maintainer Checklist
 
