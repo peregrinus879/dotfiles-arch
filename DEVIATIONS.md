@@ -12,12 +12,12 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 **Guiding principles:**
 
-- **Follow Omarchy conventions by default.** Aliases, keybindings, tmux layout ratios, and tool choices should stay close to Omarchy unless a headless or non-desktop constraint requires a change.
-- **Adapt only what breaks or does not apply.** Desktop-bound behavior, GUI launchers, and hardware workflows are omitted because they do not fit a headless machine.
-- **Keep `dotfiles-arch` as the baseline.** This repo should contain only shared Arch/Linux behavior. WSL-specific and Windows-specific adaptations belong in `dotfiles-wsl`.
-- **Use GNU Stow for dotfile management.** Omarchy uses direct file copies and packaged assets. This repo uses symlink-based package ownership for clearer separation and reuse.
-- **Single theme, no switching.** Omarchy supports many themes and hot-reload infrastructure. This repo uses Miasma only, so theme switching infrastructure is intentionally omitted.
-- **Avoid AUR for the baseline.** Baseline packages should come from official Arch repos or upstream installers unless there is a concrete reason to add more complexity.
+1. **Follow Omarchy conventions by default.** Aliases, keybindings, tmux layout ratios, and tool choices should stay close to Omarchy unless a headless or non-desktop constraint requires a change.
+2. **Adapt only what breaks or does not apply.** Desktop-bound behavior, GUI launchers, and hardware workflows are omitted because they do not fit a headless machine.
+3. **Keep `dotfiles-arch` as the baseline.** This repo should contain only shared Arch/Linux behavior. WSL-specific and Windows-specific adaptations belong in `dotfiles-wsl`.
+4. **Use GNU Stow for dotfile management.** Omarchy uses direct file copies and packaged assets. This repo uses symlink-based package ownership for clearer separation and reuse.
+5. **Single theme, no switching.** Omarchy supports many themes and hot-reload infrastructure. This repo uses Miasma only, so theme switching infrastructure is intentionally omitted.
+6. **Avoid AUR for the baseline.** Baseline packages should come from official Arch repos or upstream installers unless there is a concrete reason to add more complexity.
 
 ## Reference Sources
 
@@ -27,13 +27,13 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 ## Intentional Deviations
 
-### Environment target
+### Environment Target
 
 - Headless Arch baseline, not a full Omarchy desktop.
 - Desktop services, GUI launchers, display manager integration, and Hyprland-specific behavior are intentionally excluded.
 - Nerd Font rendering is a client-terminal concern, not a host package concern, for machines used only over SSH or Mosh.
 
-### Dotfile management
+### Dotfile Management
 
 - GNU Stow with symlinked package ownership replaces Omarchy's file-copy and package-install model.
 
@@ -56,7 +56,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 - The prompt shows `hostname` only during SSH sessions so remote shells are visually distinct from local ones while keeping the local prompt minimal.
 
-### Tmux dev layout
+### Tmux Dev Layout
 
 - `tdl` keeps the local split ratios from this dotfiles setup rather than mirroring Omarchy exactly: 50% editor and 50% AI in the top 85%, with a 15% bottom terminal pane.
 
@@ -81,7 +81,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - Standard modules `shell` and `os` are added.
 - The baseline remains shared with WSL unless future validation shows that a clean shared config is no longer practical.
 
-### btop
+### Btop
 
 - `btop.conf` is based on the generated config format produced by current `btop`, including lowercase booleans and additional default settings.
 - The intentional baseline change is `color_theme = "miasma"` instead of Omarchy's `"current"`.
