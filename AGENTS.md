@@ -26,12 +26,12 @@ It does not own:
 
 - `README.md` - stack, stow packages, setup steps
 - `APPROACH.md` - baseline methodology and deviations from Omarchy
-- `OLLAMA-ROCM.md` - optional host-specific reference for ROCm-backed Ollama on compatible AMD systems
+- `STRIX-HALO-ROCM.md` - optional host-specific guide for ROCm-backed local models on compatible AMD Strix Halo systems
 - `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
 
 ## Reference Docs
 
-- `OLLAMA-ROCM.md` is reference material for a compatible AMD host, not baseline setup required by this repo
+- `STRIX-HALO-ROCM.md` is reference material for a compatible AMD Strix Halo host, not baseline setup required by this repo
 - keep hardware-specific runbooks separate from the shared baseline unless the behavior becomes owned setup in `README.md`
 
 ## Stow Packages
@@ -80,5 +80,5 @@ Reference repos should be cloned locally and used as sync references:
 
 - Use `/synchronize` when syncing this baseline against Omarchy references
 - Keep changes within the baseline scope of this repo
-- Treat `OLLAMA-ROCM.md` as optional host guidance, not as a baseline requirement
+- Treat `STRIX-HALO-ROCM.md` as optional host guidance, not as a baseline requirement
 - Put WSL and Windows-specific deviations in `dotfiles-wsl`

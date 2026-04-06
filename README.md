@@ -55,7 +55,7 @@ sudo pacman -S --needed bash-completion bat btop eza fastfetch fd fzf gcc gum gi
 
 Nerd Font support is needed only in the client terminal used to connect to the machine. A headless Arch host does not need a local font package installed for `tmux`, `nvim`, `yazi`, `starship`, or `fastfetch` icons to render correctly over SSH.
 
-Optional: for compatible AMD hosts running local ROCm-backed Ollama, see `OLLAMA-ROCM.md`. That runbook is host-specific reference material, not part of the baseline setup below.
+Optional: for preparing a compatible AMD Strix Halo host for ROCm-backed local models, see `STRIX-HALO-ROCM.md`. That guide is host-specific reference material, not part of the baseline setup below.
 
 ### 2. Neovim Base
 
@@ -162,7 +162,7 @@ nvim
 
 - `README.md` - repo scope, package ownership, and setup
 - `APPROACH.md` - design rationale and deviations from Omarchy
-- `OLLAMA-ROCM.md` - hardware-specific reference runbook for ROCm-backed Ollama on Arch
+- `STRIX-HALO-ROCM.md` - hardware-specific reference guide for ROCm-backed local models on compatible Strix Halo hosts
 - `AGENTS.md` - canonical repo-specific assistant context
 - `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
 
