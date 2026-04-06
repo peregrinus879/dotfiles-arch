@@ -1,8 +1,12 @@
-# Approach
+# Deviations
 
-This document describes the methodology behind this adaptation of [Omarchy](https://github.com/basecamp/omarchy) for headless Arch Linux, and catalogues the baseline deviations carried by `dotfiles-arch`.
+## Purpose
 
-## Methodology
+This document records the intentional differences carried by `dotfiles-arch` relative to [Omarchy](https://github.com/basecamp/omarchy), and defines the boundary between this shared Linux baseline and environment-specific overlays.
+
+Omarchy remains the upstream reference. `dotfiles-arch` is the baseline source of truth for shared Linux behavior in this repo family.
+
+## Deviation Policy
 
 Omarchy is an opinionated Arch Linux distribution targeting a full desktop environment with Hyprland, systemd user services, GUI applications, and hardware-specific integrations. This repo extracts the terminal-layer configuration that remains useful on a headless Arch machine and restructures it into GNU Stow packages.
 
@@ -15,13 +19,13 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - **Single theme, no switching.** Omarchy supports many themes and hot-reload infrastructure. This repo uses Miasma only, so theme switching infrastructure is intentionally omitted.
 - **Avoid AUR for the baseline.** Baseline packages should come from official Arch repos or upstream installers unless there is a concrete reason to add more complexity.
 
-**Source repos:**
+## Reference Sources
 
 - [basecamp/omarchy](https://github.com/basecamp/omarchy) - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - [omacom-io/omarchy-pkgs](https://github.com/omacom-io/omarchy-pkgs) - package builds, including the Omarchy Neovim package
 - [xero/miasma.nvim](https://github.com/xero/miasma.nvim) - Miasma color scheme source
 
-## Deviations
+## Intentional Deviations
 
 ### Environment target
 
@@ -100,7 +104,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - Theme switching infrastructure not needed for a single-theme setup
 - Shell or app packages outside the chosen Bash plus terminal-tooling baseline
 
-## Overlay Boundary
+## Out Of Scope
 
 The following do **not** belong in `dotfiles-arch` and should stay in `dotfiles-wsl` or another overlay repo:
 

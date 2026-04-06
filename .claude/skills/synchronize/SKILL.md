@@ -39,21 +39,21 @@ Reference repos live under `~/projects/repos/references/`:
 2. For Omarchy-derived packages, compare against `omarchy/`, `omarchy-pkgs/`, and `miasma.nvim/`
 3. For non-Omarchy tools such as Yazi, compare against `yazi/` and official docs
 4. For each difference, classify it:
-   - **Intentional deviation**: documented in `APPROACH.md`, should stay different
+   - **Intentional deviation**: documented in `DEVIATIONS.md`, should stay different
    - **New upstream addition**: added in Omarchy after the last sync, should be reviewed for inclusion
    - **Upstream change to existing config**: modified in Omarchy, needs review
 5. Check `git log --format="%h %ad %s" --date=short -- <file>` on the relevant reference repo when you need to determine when a difference was introduced
-6. Cross-check differences against `APPROACH.md`. If a difference is not documented there, treat it as a likely upstream change that needs review
+6. Cross-check differences against `DEVIATIONS.md`. If a difference is not documented there, treat it as a likely upstream change that needs review
 7. Apply new upstream additions and changes where they belong in the shared baseline
 8. Keep WSL-specific and Windows-specific behavior out of `dotfiles-arch`
-9. Update `README.md` and `APPROACH.md` when package ownership, setup steps, or documented deviations change
+9. Update `README.md` and `DEVIATIONS.md` when package ownership, setup steps, or documented deviations change
 
 ## Rules
 
 - Present proposed changes to the user before editing
-- Omarchy is the source of truth; deviate only when something breaks or does not apply in the shared headless Arch baseline
+- Omarchy is the upstream reference; `dotfiles-arch` is the baseline source of truth for shared Linux behavior
 - Always check all relevant reference repos, not just one
-- Never assume a difference is intentional without verifying it is documented in `APPROACH.md`
+- Never assume a difference is intentional without verifying it is documented in `DEVIATIONS.md`
 - Do not add WSL-specific or Windows-specific behavior to this repo
 - Keep Neovim shared ownership clean: baseline config lives in `nvim/`, and any environment-specific overlay must remain outside this repo
 - If a change only applies to WSL, document or apply it in `dotfiles-wsl` instead

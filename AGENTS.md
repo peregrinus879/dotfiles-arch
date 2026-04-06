@@ -1,6 +1,6 @@
 # AGENTS.md - dotfiles-arch
 
-Headless Arch baseline dotfiles adapted from [Omarchy](https://github.com/basecamp/omarchy). Omarchy is the source of truth; deviate only when something breaks or does not apply in this terminal-first headless Arch baseline.
+Headless Arch baseline dotfiles adapted from [Omarchy](https://github.com/basecamp/omarchy). Omarchy is the upstream reference; `dotfiles-arch` is the baseline source of truth for shared Linux behavior.
 
 ## Scope
 
@@ -25,7 +25,7 @@ It does not own:
 ## Key Files
 
 - `README.md` - stack, stow packages, setup steps
-- `APPROACH.md` - baseline methodology and deviations from Omarchy
+- `DEVIATIONS.md` - intentional deviations from Omarchy and baseline boundaries
 - `STRIX-HALO-ROCM.md` - optional host-specific guide for ROCm-backed local models on compatible AMD Strix Halo systems
 - `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
 
@@ -77,5 +77,6 @@ Reference repos should be cloned locally and used as sync references:
 
 - Use `/synchronize` when syncing this baseline against Omarchy references
 - Keep changes within the baseline scope of this repo
+- Keep all intentional differences documented in `DEVIATIONS.md`
 - Treat `STRIX-HALO-ROCM.md` as optional host guidance, not as a baseline requirement
 - Put WSL and Windows-specific deviations in `dotfiles-wsl`
