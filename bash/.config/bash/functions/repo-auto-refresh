@@ -1,0 +1,106 @@
+__repo_auto_refresh_message() {
+  local repo_name="$1"
+  local message="$2"
+
+  printf '[repo-refresh] %s: %s\n' "$repo_name" "$message"
+}
+
+__repo_auto_refresh_has_in_progress_state() {
+  local git_dir="$1"
+
+  [[ -f "$git_dir/MERGE_HEAD" ]] && return 0
+  [[ -d "$git_dir/rebase-merge" ]] && return 0
+  [[ -d "$git_dir/rebase-apply" ]] && return 0
+  [[ -f "$git_dir/CHERRY_PICK_HEAD" ]] && return 0
+  [[ -f "$git_dir/REVERT_HEAD" ]] && return 0
+  [[ -f "$git_dir/BISECT_LOG" ]] && return 0
+  [[ -d "$git_dir/sequencer" ]] && return 0
+
+  return 1
+}
+
+__repo_auto_refresh_run() {
+  local force="${1:-0}"
+  local scope_root="${REPO_AUTO_REFRESH_ROOT:-$HOME/projects/repos}"
+  local interval="${REPO_AUTO_REFRESH_INTERVAL:-300}"
+  local repo_root repo_name git_dir now ahead behind status_output
+
+  command -v git &> /dev/null || return 0
+  [[ "$interval" =~ ^[0-9]+$ ]] || interval=300
+
+  repo_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null)" || return 0
+  [[ "$repo_root" == "$scope_root" || "$repo_root" == "$scope_root"/* ]] || return 0
+
+  if [[ "$force" != "1" ]]; then
+    now="$(printf '%(%s)T' -1)"
+    if [[ -n "${__repo_auto_refresh_last_check[$repo_root]:-}" ]] \
+      && (( now - __repo_auto_refresh_last_check[$repo_root] < interval )); then
+      return 0
+    fi
+    __repo_auto_refresh_last_check[$repo_root]="$now"
+  fi
+
+  repo_name="$(basename "$repo_root")"
+
+  if ! git -C "$repo_root" fetch --prune --quiet --no-tags 2>/dev/null; then
+    __repo_auto_refresh_message "$repo_name" "fetch failed; skipped"
+    return 0
+  fi
+
+  git -C "$repo_root" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' &>/dev/null || return 0
+
+  read -r ahead behind < <(git -C "$repo_root" rev-list --left-right --count HEAD...@{upstream} 2>/dev/null) || return 0
+  (( behind > 0 )) || return 0
+
+  if ! git -C "$repo_root" symbolic-ref -q HEAD &>/dev/null; then
+    __repo_auto_refresh_message "$repo_name" "behind upstream but HEAD is detached; skipped"
+    return 0
+  fi
+
+  git_dir="$(git -C "$repo_root" rev-parse --git-dir 2>/dev/null)" || return 0
+  if __repo_auto_refresh_has_in_progress_state "$git_dir"; then
+    __repo_auto_refresh_message "$repo_name" "behind upstream but a git operation is in progress; skipped"
+    return 0
+  fi
+
+  if (( ahead > 0 )); then
+    __repo_auto_refresh_message "$repo_name" "diverged from upstream; skipped"
+    return 0
+  fi
+
+  status_output="$(git -C "$repo_root" status --porcelain --ignore-submodules=all 2>/dev/null)"
+  if [[ -n "$status_output" ]]; then
+    __repo_auto_refresh_message "$repo_name" "behind upstream but has local changes; skipped"
+    return 0
+  fi
+
+  if git -C "$repo_root" pull --ff-only --quiet 2>/dev/null; then
+    __repo_auto_refresh_message "$repo_name" "fast-forwarded to upstream"
+  else
+    __repo_auto_refresh_message "$repo_name" "fast-forward failed; inspect manually"
+  fi
+}
+
+__repo_auto_refresh_prompt() {
+  [[ "${REPO_AUTO_REFRESH:-0}" == "1" ]] || return 0
+  [[ "$PWD" != "${__repo_auto_refresh_last_pwd:-}" ]] || return 0
+
+  __repo_auto_refresh_last_pwd="$PWD"
+  __repo_auto_refresh_run 0
+}
+
+enable_repo_auto_refresh() {
+  [[ "${__repo_auto_refresh_hook_enabled:-0}" == "1" ]] && return 0
+  declare -gA __repo_auto_refresh_last_check=()
+  __repo_auto_refresh_hook_enabled=1
+
+  if [[ -n "${PROMPT_COMMAND:-}" ]]; then
+    PROMPT_COMMAND="__repo_auto_refresh_prompt;${PROMPT_COMMAND}"
+  else
+    PROMPT_COMMAND="__repo_auto_refresh_prompt"
+  fi
+}
+
+repo-refresh-now() {
+  __repo_auto_refresh_run 1
+}
