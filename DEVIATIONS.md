@@ -4,7 +4,7 @@
 
 This document records the intentional differences carried by `dotfiles-arch` relative to [Omarchy](https://github.com/basecamp/omarchy), and defines the boundary between this shared Linux baseline and environment-specific overlays.
 
-Omarchy remains the upstream reference. `dotfiles-arch` is the baseline source of truth for shared Linux behavior in this repo family.
+Omarchy remains the upstream reference. This repo carries the shared Linux baseline used across this repo family.
 
 ## Deviation Policy
 

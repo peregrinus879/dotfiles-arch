@@ -1,20 +1,21 @@
 # AGENTS.md - dotfiles-arch
 
-Headless Arch baseline dotfiles adapted from [Omarchy](https://github.com/basecamp/omarchy). Omarchy is the upstream reference; `dotfiles-arch` is the baseline source of truth for shared Linux behavior.
+Headless Arch baseline dotfiles adapted from [Omarchy](https://github.com/basecamp/omarchy). Omarchy, official docs, official package docs, and `DEVIATIONS.md` are the source of truth for inherited behavior and intentional differences.
 
 ## Scope
 
-This repo is the shared Linux baseline for terminal-first headless Arch environments.
+This repo carries the shared Linux baseline for terminal-first headless Arch environments.
 
 It owns:
 
-- shared shell and terminal configs
-- shared Neovim config
+- shared GNU Stow packages for Bash, Git, Neovim, tmux, starship, fastfetch, btop, editorconfig, and Yazi
 - shared helper logic that overlays may enable without changing baseline ownership
+- baseline setup and maintenance docs
 
 It does not own:
 
 - WSL or Windows-specific behavior
+- host-specific runbooks beyond optional reference material
 
 ## Environment
 
@@ -29,29 +30,6 @@ It does not own:
 - `STRIX-HALO-ROCM.md` - optional host-specific guide for ROCm-backed local models on compatible AMD Strix Halo systems
 - `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
 
-## Reference Docs
-
-- `STRIX-HALO-ROCM.md` is reference material for a compatible AMD Strix Halo host, not baseline setup required by this repo
-- keep hardware-specific runbooks separate from the shared baseline unless the behavior becomes owned setup in `README.md`
-
-## Stow Packages
-
-Each top-level package is managed with GNU Stow and symlinked into `$HOME`.
-
-- `bash/`
-- `btop/`
-- `editorconfig/`
-- `fastfetch/`
-- `git/`
-- `nvim/`
-- `starship/`
-- `tmux/`
-- `yazi/`
-
-Neovim shared config, including `lua/config/options.lua`, lives in `nvim/`.
-
-WSL and other environment-specific repos should extend this baseline through overlays instead of changing ownership here.
-
 ## Setup Invariants
 
 - `nvim/` assumes the LazyVim starter was cloned into `~/.config/nvim` first
@@ -60,14 +38,14 @@ WSL and other environment-specific repos should extend this baseline through ove
 - Nerd Font rendering comes from the client terminal, not the headless Arch host
 - Future shared Linux changes belong here; WSL and Windows-specific changes belong in `dotfiles-wsl`
 
-## Reference Repos
+## Reference Sources
 
-Reference repos should be cloned locally under the canonical `~/projects/repos/references/` root used by `/synchronize`:
-
-- `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
-- `omarchy-pkgs/` - package builds, including the Omarchy Neovim package
-- `miasma.nvim/` - Miasma color scheme source
-- `yazi/` - Yazi reference repo for configuration, theme, and feature changes
+- `STRIX-HALO-ROCM.md` is optional reference material for compatible AMD Strix Halo hosts, not baseline setup required by this repo
+- `/synchronize` expects local reference repos under the canonical `~/projects/repos/references/` root
+- `~/projects/repos/references/omarchy` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
+- `~/projects/repos/references/omarchy-pkgs` - package builds, including the Omarchy Neovim package
+- `~/projects/repos/references/miasma.nvim` - Miasma color scheme source
+- `~/projects/repos/references/yazi` - Yazi reference repo for configuration, theme, and feature changes
 
 ## Skills
 
@@ -78,5 +56,6 @@ Reference repos should be cloned locally under the canonical `~/projects/repos/r
 - Use `/synchronize` when syncing this baseline against Omarchy references
 - Keep changes within the baseline scope of this repo
 - Keep all intentional differences documented in `DEVIATIONS.md`
+- Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
 - Treat `STRIX-HALO-ROCM.md` as optional host guidance, not as a baseline requirement
 - Put WSL and Windows-specific deviations in `dotfiles-wsl`

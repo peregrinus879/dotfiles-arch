@@ -33,6 +33,13 @@ Reference repos live under `~/projects/repos/references/`:
 - [btop](https://github.com/aristocratos/btop) - config options and themes
 - [fastfetch Wiki](https://github.com/fastfetch-cli/fastfetch/wiki) - modules and JSON config
 
+## When To Use
+
+- Use this skill when Omarchy or a reference repo changed materially.
+- Use this skill when shared baseline ownership or behavior changed materially.
+- Use this skill when you suspect undocumented drift between this repo and its references.
+- Use this skill before broad sync-oriented doc updates.
+
 ## Workflow
 
 1. Compare reference repos against the packages owned by `dotfiles-arch`
@@ -46,12 +53,19 @@ Reference repos live under `~/projects/repos/references/`:
 6. Cross-check differences against `DEVIATIONS.md`. If a difference is not documented there, treat it as a likely upstream change that needs review
 7. Apply new upstream additions and changes where they belong in the shared baseline
 8. Keep WSL-specific and Windows-specific behavior out of `dotfiles-arch`
-9. Update `README.md` and `DEVIATIONS.md` when package ownership, setup steps, or documented deviations change
+9. Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` when package ownership, setup steps, or documented deviations change
+10. Summarize which changes were adopted, rejected, or intentionally kept different
+
+## Completion Checks
+
+- `README.md`, `AGENTS.md`, and `DEVIATIONS.md` reflect any ownership, setup, or workflow changes
+- Every retained difference is still documented in `DEVIATIONS.md`
+- The final summary distinguishes adopted changes, rejected changes, and intentional retained differences
 
 ## Rules
 
 - Present proposed changes to the user before editing
-- Omarchy is the upstream reference; `dotfiles-arch` is the baseline source of truth for shared Linux behavior
+- Omarchy, official docs, official package docs, and `DEVIATIONS.md` are the source of truth for inherited behavior and intentional differences
 - Always check all relevant reference repos, not just one
 - Never assume a difference is intentional without verifying it is documented in `DEVIATIONS.md`
 - Do not add WSL-specific or Windows-specific behavior to this repo
