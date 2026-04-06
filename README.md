@@ -2,9 +2,9 @@
 
 Headless Arch Linux dotfiles, adapted from [Omarchy](https://github.com/basecamp/omarchy), managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-`dotfiles-arch` is the shared Linux baseline for terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel, while dropping desktop-specific components that do not apply on a headless machine.
+`dotfiles-arch` is the baseline source of truth for shared Linux behavior in terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel while dropping desktop-specific components that do not apply on a headless machine.
 
-If you also maintain Arch in WSL, use `dotfiles-wsl` as a separate overlay on top of this baseline.
+If you also maintain Arch in WSL, use `dotfiles-wsl` as the additive WSL and Windows-specific overlay on top of this baseline.
 
 ## Stack
 
@@ -160,10 +160,32 @@ Open Neovim once to trigger plugin installation:
 nvim
 ```
 
+## Verify
+
+After stowing the baseline:
+
+- Confirm core symlinks exist: `test -L ~/.bashrc && test -L ~/.config/starship.toml && test -L ~/.config/nvim/lua/config/options.lua`
+- Confirm the local Git identity file exists: `test -f ~/.config/git/config.local`
+- Start a fresh shell and confirm Bash, Starship, and Tmux load without errors.
+- Run `nvim` once and confirm plugins install successfully and Miasma loads.
+- Confirm Miasma is visible in `tmux`, Neovim, Yazi, `btop`, and `fastfetch`.
+
+## Maintainer Checklist
+
+When updating this baseline:
+
+1. Review the local reference repos and current official docs for Omarchy, GNU Stow, LazyVim, Neovim, Yazi, `btop`, and `fastfetch`.
+2. Use `/synchronize` or compare the owned packages manually against the upstream references.
+3. Confirm every intentional difference is still documented in `DEVIATIONS.md`.
+4. Update `README.md` when package ownership, setup steps, or verification steps change.
+5. Keep WSL and Windows-specific behavior in `dotfiles-wsl`.
+6. Confirm the baseline assumptions still hold: LazyVim starter, `~/.config/git/config.local`, package list, and Stow targets.
+7. Start a fresh shell and Neovim session after structural changes to verify the baseline still loads cleanly.
+
 ## References
 
 - `README.md` - repo scope, package ownership, and setup
-- `APPROACH.md` - design rationale and deviations from Omarchy
+- `DEVIATIONS.md` - intentional deviations from Omarchy and baseline boundaries
 - `STRIX-HALO-ROCM.md` - hardware-specific reference guide for ROCm-backed local models on compatible Strix Halo hosts
 - `AGENTS.md` - canonical repo-specific assistant context
 - `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
@@ -180,7 +202,7 @@ Clone these locally if you plan to use `/synchronize` or compare this baseline a
 
 ## Credits
 
-Adapted from [Omarchy](https://github.com/basecamp/omarchy). See [APPROACH.md](APPROACH.md) for methodology and deviations.
+Adapted from [Omarchy](https://github.com/basecamp/omarchy). See [DEVIATIONS.md](DEVIATIONS.md) for intentional differences and baseline boundaries.
 
 ## License
 
