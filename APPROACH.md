@@ -29,23 +29,24 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - Desktop services, GUI launchers, display manager integration, and Hyprland-specific behavior are intentionally excluded.
 - Nerd Font rendering is a client-terminal concern, not a host package concern, for machines used only over SSH or Mosh.
 
+### Dotfile management
+
+- GNU Stow with symlinked package ownership replaces Omarchy's file-copy and package-install model.
+
 ### Theme
 
 - Only Miasma is configured. Omarchy's multi-theme plugin set and theme hot-reload infrastructure are omitted.
-
-### Yazi theme
-
-- Custom `theme.toml` uses the Miasma palette throughout.
-- One off-palette color, `#333333`, is kept for alternate and inactive backgrounds to create subtle separation from the base terminal background `#222222`.
 
 ### Bash
 
 - Config location is `~/.config/bash/` using an XDG-style layout instead of Omarchy's internal default path.
 - Modular shell functions live in `~/.config/bash/functions/` and are sourced via a loop in `.bashrc`.
+- Optional Bash environment overlays are sourced from `~/.config/bash-overlays/*` after the shared init so machine-specific packages can enable shared helpers without replacing baseline ownership.
 - Dropped aliases: `open` (GUI-only), `d='docker'`, and `r='rails'`.
 - `cx` omits Omarchy's `--allow-dangerously-skip-permissions` flag.
 - `y()` is added for Yazi cd-on-exit support. Yazi is not part of Omarchy.
 - `mise`-specific shell handling is omitted from the baseline.
+- A shared repo auto-refresh helper is included but disabled by default. This is a personal workflow deviation from Omarchy so WSL and future Omarchy overlays can safely enable fetch plus fast-forward checks under `~/projects/repos` without changing the headless baseline behavior.
 
 ### Starship
 
@@ -57,7 +58,8 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 ### Neovim
 
-- Neovim is split into a shared package and an Arch-specific overlay so `options.lua` can differ cleanly across environments.
+- `lua/config/options.lua` lives in the shared `nvim/` package, matching Omarchy's single shared `options.lua` ownership model.
+- `options.lua` keeps Omarchy's `vim.opt.relativenumber = false` baseline and loads an optional `lua/config/overlay.lua` when present so environment overlays can extend the shared config without replacing the file.
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
 - Neo-tree shows dotfiles by default so the file explorer matches the baseline preference for visible dotfiles.
 - `render-markdown.nvim` is added beyond Omarchy's `omarchy-nvim` baseline as a standalone plugin, using its default upstream setup for headless-safe Markdown rendering inside Neovim.
@@ -85,10 +87,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - Added entirely. Yazi is not part of Omarchy.
 - `yazi.toml` keeps the local layout and behavior choices: ratio `[2, 4, 4]`, hidden files shown, and directories sorted first.
 - `theme.toml` carries the Miasma palette.
-
-### Dotfile management
-
-- GNU Stow with symlinked package ownership replaces Omarchy's file-copy and package-install model.
+- One off-palette color, `#333333`, is kept for alternate and inactive backgrounds to create subtle separation from the base terminal background `#222222`.
 
 ## Skipped From Omarchy
 

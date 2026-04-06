@@ -2,9 +2,9 @@
 
 Headless Arch Linux dotfiles, adapted from [Omarchy](https://github.com/basecamp/omarchy), managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-This repo is for making a headless Arch Linux machine look and feel like Omarchy at the terminal layer, without carrying Omarchy's desktop-specific components.
+`dotfiles-arch` is the shared Linux baseline for terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel, while dropping desktop-specific components that do not apply on a headless machine.
 
-If you also maintain an Arch Linux WSL environment, use `dotfiles-wsl` as a separate overlay on top of this baseline.
+If you also maintain Arch in WSL, use `dotfiles-wsl` as a separate overlay on top of this baseline.
 
 ## Stack
 
@@ -20,9 +20,9 @@ If you also maintain an Arch Linux WSL environment, use `dotfiles-wsl` as a sepa
 - **Dotfile Management**: [GNU Stow](https://www.gnu.org/software/stow/)
 - **Theme**: [Miasma](https://github.com/xero/miasma.nvim)
 
-## Stow Packages
+## Package Layout
 
-Each directory is a GNU Stow package that symlinks into `$HOME`:
+Each top-level directory is a GNU Stow package that symlinks into `$HOME`:
 
 ```text
 bash/          Shell config (.bashrc, .inputrc, .config/bash/)
@@ -30,17 +30,18 @@ btop/          System monitor config (btop.conf, themes/miasma.theme)
 editorconfig/  Editor formatting rules (.editorconfig)
 fastfetch/     System info config (config.jsonc)
 git/           Git config (config, ignore)
-nvim/          Shared Neovim config (lazyvim.json, lua/plugins/, plugin/after/)
-nvim-arch/     Arch-native Neovim options (lua/config/options.lua)
+nvim/          Shared Neovim config (lazyvim.json, lua/config/, lua/plugins/, plugin/after/)
 starship/      Prompt config (starship.toml)
 tmux/          Tmux config (tmux.conf)
 yazi/          File manager config (yazi.toml, theme.toml)
 ```
 
-Neovim is split so the shared config and Arch-native `options.lua` remain separate:
+Key ownership rules:
 
-- `nvim/` contains shared Neovim config
-- `nvim-arch/` contains the Arch-native `lua/config/options.lua`
+- `nvim/` owns the shared Neovim config, including `lua/config/options.lua`
+- environment-specific Neovim behavior should extend the shared config via `lua/config/overlay.lua`
+- Bash supports additive machine overlays through `~/.config/bash-overlays/*`
+- the shared Bash repo auto-refresh helper is present here but stays disabled unless an overlay enables it
 
 ## Setup
 
@@ -57,16 +58,28 @@ Nerd Font support is needed only in the client terminal used to connect to the m
 
 Optional: for preparing a compatible AMD Strix Halo host for ROCm-backed local models, see `STRIX-HALO-ROCM.md`. That guide is host-specific reference material, not part of the baseline setup below.
 
-### 2. Neovim Base
+### 2. Clone
 
-Clone the LazyVim starter first so the shared `nvim/` package and the `nvim-arch/` overlay have a target directory to extend:
+```bash
+git clone https://github.com/peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
+```
+
+Or with SSH:
+
+```bash
+git clone git@github.com:peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
+```
+
+### 3. Neovim Base
+
+Clone the LazyVim starter first so the shared `nvim/` package has a target directory to extend:
 
 ```bash
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 ```
 
-### 3. Private Git Identity
+### 4. Private Git Identity
 
 Tracked Git config intentionally excludes `[user]` identity. Create a local untracked file before using Git:
 
@@ -82,23 +95,12 @@ Create `~/.config/git/config.local` with your local identity:
   email = your-email@example.com
 ```
 
-### 4. Clone
-
-```bash
-git clone https://github.com/peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
-```
-
-Or with SSH:
-
-```bash
-git clone git@github.com:peregrinus879/dotfiles-arch.git ~/path/to/dotfiles-arch
-```
-
 ### 5. Prepare
 
 Checklist before stowing:
 
 - Required packages are installed
+- `dotfiles-arch` was cloned locally
 - LazyVim starter was cloned into `~/.config/nvim`
 - `~/.config/git/config.local` exists with your local Git identity
 - Any existing conflicting dotfiles were removed
@@ -129,7 +131,7 @@ Create symlinks for all packages:
 
 ```bash
 cd ~/path/to/dotfiles-arch
-stow -v -t ~ bash btop editorconfig fastfetch git nvim nvim-arch starship tmux yazi
+stow -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
 Start a new terminal session, or run `source ~/.bashrc`, for the shell config to take effect.
@@ -138,7 +140,7 @@ Start a new terminal session, or run `source ~/.bashrc`, for the shell config to
 
 ```bash
 cd ~/path/to/dotfiles-arch
-stow -D -v -t ~ bash btop editorconfig fastfetch git nvim nvim-arch starship tmux yazi
+stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
 ### Dry Run
@@ -147,10 +149,10 @@ Preview what stow would do without making changes:
 
 ```bash
 cd ~/path/to/dotfiles-arch
-stow -v -n -t ~ bash btop editorconfig fastfetch git nvim nvim-arch starship tmux yazi
+stow -v -n -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
-### 7. Neovim Plugins
+### 7. First Launch
 
 Open Neovim once to trigger plugin installation:
 

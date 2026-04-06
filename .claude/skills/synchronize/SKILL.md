@@ -55,5 +55,5 @@ Reference repos live under `~/projects/repos/references/`:
 - Always check all relevant reference repos, not just one
 - Never assume a difference is intentional without verifying it is documented in `APPROACH.md`
 - Do not add WSL-specific or Windows-specific behavior to this repo
-- Keep Neovim split clean: shared config in `nvim/`, Arch-native options in `nvim-arch/`
+- Keep Neovim shared ownership clean: baseline config lives in `nvim/`, and any environment-specific overlay must remain outside this repo
 - If a change only applies to WSL, document or apply it in `dotfiles-wsl` instead

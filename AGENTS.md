@@ -10,7 +10,7 @@ It owns:
 
 - shared shell and terminal configs
 - shared Neovim config
-- Arch-native Neovim overlay in `nvim-arch/`
+- shared helper logic that overlays may enable without changing baseline ownership
 
 It does not own:
 
@@ -44,21 +44,18 @@ Each top-level package is managed with GNU Stow and symlinked into `$HOME`.
 - `fastfetch/`
 - `git/`
 - `nvim/`
-- `nvim-arch/`
 - `starship/`
 - `tmux/`
 - `yazi/`
 
-Neovim is intentionally split:
+Neovim shared config, including `lua/config/options.lua`, lives in `nvim/`.
 
-- `nvim/` for shared config
-- `nvim-arch/` for Arch-native `lua/config/options.lua`
-
-WSL should consume `dotfiles-wsl` for its overlay instead of stowing `nvim-arch/`.
+WSL and other environment-specific repos should extend this baseline through overlays instead of changing ownership here.
 
 ## Setup Invariants
 
-- `nvim/` and `nvim-arch/` assume the LazyVim starter was cloned into `~/.config/nvim` first
+- `nvim/` assumes the LazyVim starter was cloned into `~/.config/nvim` first
+- Bash may load additive machine-specific overlays from `~/.config/bash-overlays/` after the shared init
 - Git identity is expected in the untracked local file `~/.config/git/config.local`
 - Nerd Font rendering comes from the client terminal, not the headless Arch host
 - Future shared Linux changes belong here; WSL and Windows-specific changes belong in `dotfiles-wsl`
