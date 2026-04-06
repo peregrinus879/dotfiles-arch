@@ -59,3 +59,13 @@ It does not own:
 - Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
 - Treat `STRIX-HALO-ROCM.md` as optional host guidance, not as a baseline requirement
 - Put WSL and Windows-specific deviations in `dotfiles-wsl`
+
+## Maintainer Checklist
+
+1. Review the local reference repos and current official docs for Omarchy, GNU Stow, LazyVim, Neovim, Yazi, `btop`, and `fastfetch`.
+2. Use `/synchronize` or compare the owned packages manually against the upstream references.
+3. Confirm every intentional difference is still documented in `DEVIATIONS.md`.
+4. Update `README.md` when package ownership, setup steps, or verification steps change.
+5. Keep WSL and Windows-specific behavior in `dotfiles-wsl`.
+6. Confirm the baseline assumptions still hold: LazyVim starter, `~/.config/git/config.local`, package list, and Stow targets.
+7. Start a fresh shell and Neovim session after structural changes to verify the baseline still loads cleanly.

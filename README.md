@@ -10,8 +10,8 @@ If you also maintain Arch in WSL, use `dotfiles-wsl` as the additive WSL and Win
 
 - [`dotfiles-ai`](https://github.com/peregrinus879/dotfiles-ai) - Claude Code and OpenCode global dotfiles, managed with GNU Stow
 - [`dotfiles-arch`](https://github.com/peregrinus879/dotfiles-arch) - Headless Arch Linux dotfiles adapted from Omarchy, managed with GNU Stow
-- [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - WSL (Arch Linux) dotfiles adapted from Omarchy, managed with GNU Stow
-- [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Omarchy personal dotfiles, managed with GNU
+- [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - WSL overlay for dotfiles-arch (Arch Linux), managed with GNU Stow
+- [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Omarchy personal dotfiles, managed with GNU Stow
 
 ## Stack
 
@@ -49,6 +49,8 @@ Key ownership rules:
 - environment-specific Neovim behavior should extend the shared config via `lua/config/overlay.lua`
 - Bash supports additive machine overlays through `~/.config/bash-overlays/*`
 - the shared Bash repo auto-refresh helper is present here but stays disabled unless an overlay enables it
+  - overlays enable it by exporting `REPO_AUTO_REFRESH=1` and calling `enable_repo_auto_refresh`
+  - tunable via `REPO_AUTO_REFRESH_ROOT` (default `~/projects/repos`) and `REPO_AUTO_REFRESH_INTERVAL` (default `300` seconds)
 
 ## Setup
 
@@ -177,29 +179,17 @@ After stowing the baseline:
 - Start a fresh shell and confirm Bash, Starship, and Tmux load without errors.
 - Run `nvim` once and confirm plugins install successfully and Miasma loads.
 
-## Maintainer Checklist
-
-When updating this baseline:
-
-1. Review the local reference repos and current official docs for Omarchy, GNU Stow, LazyVim, Neovim, Yazi, `btop`, and `fastfetch`.
-2. Use `/synchronize` or compare the owned packages manually against the upstream references.
-3. Confirm every intentional difference is still documented in `DEVIATIONS.md`.
-4. Update `README.md` when package ownership, setup steps, or verification steps change.
-5. Keep WSL and Windows-specific behavior in `dotfiles-wsl`.
-6. Confirm the baseline assumptions still hold: LazyVim starter, `~/.config/git/config.local`, package list, and Stow targets.
-7. Start a fresh shell and Neovim session after structural changes to verify the baseline still loads cleanly.
-
 ## References
 
 - `README.md` - repo scope, package ownership, and setup
 - `DEVIATIONS.md` - intentional deviations from Omarchy and baseline boundaries
 - `STRIX-HALO-ROCM.md` - hardware-specific reference guide for ROCm-backed local models on compatible Strix Halo hosts
-- `AGENTS.md` - canonical repo-specific assistant context
+- `AGENTS.md` - canonical repo-specific assistant context and maintainer checklist
 - `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
 
 ## Related Repos
 
-Clone these locally if you plan to use `/synchronize` or compare this baseline against upstream references.
+Clone these locally if you plan to use `/synchronize` or compare this baseline against upstream references. The `/synchronize` skill expects reference repos under `~/projects/repos/references/`.
 
 - `~/projects/repos/references/omarchy` - upstream Omarchy reference repo
 - `~/projects/repos/references/omarchy-pkgs` - upstream package reference repo
