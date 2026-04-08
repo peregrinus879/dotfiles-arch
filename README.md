@@ -48,6 +48,7 @@ Key ownership rules:
 - `nvim/` owns the shared Neovim config, including `lua/config/options.lua`
 - environment-specific Neovim behavior should extend the shared config via `lua/config/overlay.lua`
 - Bash supports additive machine overlays through `~/.config/bash-overlays/*`
+- Bash overlay filenames should be descriptive by default; use numeric prefixes only when multiple overlay files need explicit lexicographic load ordering
 - the shared Bash repo auto-refresh helper is present here but stays disabled unless an overlay enables it
   - overlays enable it by exporting `REPO_AUTO_REFRESH=1` and calling `enable_repo_auto_refresh`
   - tunable via `REPO_AUTO_REFRESH_ROOT` (default `~/projects/repos`) and `REPO_AUTO_REFRESH_INTERVAL` (default `300` seconds)
