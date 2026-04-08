@@ -60,7 +60,7 @@ Install the baseline packages required by these dotfiles:
 
 ```bash
 sudo pacman -S --needed bash-completion bat btop eza fastfetch fd fzf gcc gum github-cli \
-  jq lazygit less neovim openssh ripgrep shellcheck starship stow tmux yazi zoxide
+  jq lazygit less neovim openssh ripgrep shellcheck starship stow tmux which yazi zoxide
 ```
 
 Nerd Font support is needed only in the client terminal used to connect to the machine. A headless Arch host does not need a local font package installed for `tmux`, `nvim`, `yazi`, `starship`, or `fastfetch` icons to render correctly over SSH.
