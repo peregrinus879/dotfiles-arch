@@ -59,6 +59,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 ### Tmux Dev Layout
 
 - `tdl` keeps the local split ratios from this dotfiles setup rather than mirroring Omarchy exactly: 50% editor and 50% AI in the top 85%, with a 15% bottom terminal pane.
+- `tdl` guards AI panes with a per-pane `allow-passthrough off` during initialization, restoring it after 1 second via a background subshell. This prevents DCS passthrough responses from OpenCode's TUI init being misrouted to the editor pane during the focus transition, which causes Neovim E349 on startup. Claude Code is not affected. Proposed upstream in [basecamp/omarchy#5256](https://github.com/basecamp/omarchy/pull/5256).
 
 ### Neovim
 
