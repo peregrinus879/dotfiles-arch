@@ -117,9 +117,14 @@ Checklist before stowing:
 - `~/.config/git/config.local` exists with your local Git identity
 - Any existing conflicting dotfiles were removed
 
-Remove existing files that would conflict with stow:
+Remove existing files that would conflict with stow. The first block removes tree-folded directory symlinks left by a previous stow (harmless on a fresh machine). The second block removes individual config files:
 
 ```bash
+# Tree-folded directory symlinks (from a previous stow)
+rm -f ~/.config/bash ~/.config/btop ~/.config/fastfetch ~/.config/git \
+  ~/.config/nvim/plugin ~/.config/tmux ~/.config/yazi
+
+# Individual config files
 rm -f ~/.bashrc ~/.inputrc
 rm -f ~/.editorconfig
 rm -f ~/.config/git/config ~/.config/git/ignore
@@ -163,6 +168,26 @@ Preview what stow would do without making changes:
 cd ~/projects/repos/dotfiles/dotfiles-arch
 stow -v -n -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
+
+### Re-stow
+
+To update symlinks after the repo content changes (same clone path):
+
+```bash
+cd ~/projects/repos/dotfiles/dotfiles-arch
+stow -R -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
+```
+
+To migrate from a different clone path, unstow from the old location first:
+
+```bash
+cd /old/clone/path
+stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
+cd ~/projects/repos/dotfiles/dotfiles-arch
+stow -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
+```
+
+If the old clone is no longer available, run the full cleanup in section 5 before stowing.
 
 ### 7. First Launch
 
