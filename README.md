@@ -139,6 +139,7 @@ rm -f ~/.config/nvim/lua/plugins/example.lua
 rm -f ~/.config/nvim/lua/plugins/colorscheme.lua
 rm -f ~/.config/nvim/lua/plugins/disable-news-alert.lua
 rm -f ~/.config/nvim/lua/plugins/snacks-animated-scrolling-off.lua
+rm -f ~/.config/nvim/lua/plugins/obsidian.lua
 rm -f ~/.config/nvim/plugin/after/transparency.lua
 ```
 

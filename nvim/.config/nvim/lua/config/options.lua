@@ -10,3 +10,6 @@ local overlay = vim.fn.stdpath("config") .. "/lua/config/overlay.lua"
 if uv.fs_stat(overlay) then
   require("config.overlay").setup()
 end
+
+-- Markdown heading fold support (used by obsidian.nvim vault navigation)
+vim.g.markdown_folding = 1
