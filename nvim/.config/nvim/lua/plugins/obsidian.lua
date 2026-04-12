@@ -19,15 +19,15 @@ return {
           path = "~/vault",
         },
       },
-      notes_subdir = "journal",
+      notes_subdir = "0-inbox",
       new_notes_location = "notes_subdir",
       daily_notes = {
-        folder = "journal",
+        folder = "1-daily",
         date_format = "%Y-%m-%d",
         template = "daily.md",
       },
       templates = {
-        folder = "templates",
+        folder = "8-templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
       },
@@ -40,7 +40,7 @@ return {
         enable = false,
       },
       attachments = {
-        folder = "assets",
+        folder = "9-assets",
       },
       note_id_func = function(title)
         if title ~= nil then
