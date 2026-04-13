@@ -19,10 +19,10 @@ return {
           path = "~/vault",
         },
       },
-      notes_subdir = "0-inbox",
+      notes_subdir = "1-fleeting",
       new_notes_location = "notes_subdir",
       daily_notes = {
-        folder = "1-daily",
+        folder = "0-daily",
         date_format = "%Y-%m-%d",
         template = "daily.md",
       },
