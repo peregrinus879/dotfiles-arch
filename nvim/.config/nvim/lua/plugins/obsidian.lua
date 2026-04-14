@@ -71,6 +71,99 @@ return {
       { "<leader>ot", "<cmd>Obsidian template<cr>", desc = "Insert template" },
       { "<leader>ol", "<cmd>Obsidian links<cr>", desc = "Links" },
       { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image" },
+      {
+        "<leader>or",
+        function()
+          local old_path = vim.api.nvim_buf_get_name(0)
+          if not old_path:find(vim.env.HOME .. "/vault/", 1, true) then
+            vim.notify("Not in vault", vim.log.levels.WARN)
+            return
+          end
+
+          local stem = vim.fn.fnamemodify(old_path, ":t:r")
+          local slug = stem:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+
+          if slug == "" then
+            vim.notify("Slug is empty after sanitizing", vim.log.levels.ERROR)
+            return
+          end
+
+          if stem == slug then
+            vim.notify("Filename already matches slug", vim.log.levels.INFO)
+            return
+          end
+
+          local dir = vim.fn.fnamemodify(old_path, ":h")
+          local new_path = dir .. "/" .. slug .. ".md"
+
+          if vim.fn.filereadable(new_path) == 1 then
+            vim.notify("Target already exists: " .. slug .. ".md", vim.log.levels.ERROR)
+            return
+          end
+
+          local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+          if lines[1] ~= "---" then
+            vim.notify("No frontmatter found", vim.log.levels.WARN)
+            return
+          end
+
+          local ok = vim.fn.confirm("Rename to " .. slug .. ".md?", "&Yes\n&No", 2)
+          if ok ~= 1 then return end
+
+          local new_lines = {}
+          local in_fm = false
+          local i = 1
+          while i <= #lines do
+            local line = lines[i]
+            if i == 1 and line == "---" then
+              in_fm = true
+              new_lines[#new_lines + 1] = line
+            elseif in_fm and line == "---" then
+              in_fm = false
+              new_lines[#new_lines + 1] = line
+            elseif in_fm and line:match("^id:") then
+              new_lines[#new_lines + 1] = "id: " .. slug
+              while i + 1 <= #lines and lines[i + 1]:match("^%s") do
+                i = i + 1
+              end
+            elseif in_fm and line:match("^aliases:") then
+              new_lines[#new_lines + 1] = "aliases:"
+              local existing = {}
+              while i + 1 <= #lines and lines[i + 1]:match("^%s+%-") do
+                i = i + 1
+                local val = lines[i]:match("^%s+-%s+(.*)")
+                if val and val:lower() ~= "untitled" then
+                  existing[#existing + 1] = val
+                end
+              end
+              local has_stem = false
+              for _, v in ipairs(existing) do
+                if v == stem then has_stem = true end
+              end
+              if not has_stem then
+                new_lines[#new_lines + 1] = "  - " .. stem
+              end
+              for _, v in ipairs(existing) do
+                new_lines[#new_lines + 1] = "  - " .. v
+              end
+            else
+              new_lines[#new_lines + 1] = line
+            end
+            i = i + 1
+          end
+
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
+          vim.cmd("write")
+          if vim.fn.rename(old_path, new_path) ~= 0 then
+            vim.notify("Rename failed", vim.log.levels.ERROR)
+            return
+          end
+          vim.api.nvim_buf_set_name(0, new_path)
+          vim.cmd("edit!")
+          vim.notify("Renamed: " .. stem .. " -> " .. slug .. ".md", vim.log.levels.INFO)
+        end,
+        desc = "Rename note to slug",
+      },
     },
   },
 }
