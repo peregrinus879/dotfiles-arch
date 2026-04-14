@@ -66,7 +66,6 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `lua/config/options.lua` lives in the shared `nvim/` package, matching Omarchy's single shared `options.lua` ownership model.
 - `options.lua` keeps Omarchy's `vim.opt.relativenumber = false` baseline and loads an optional `lua/config/overlay.lua` when present so environment overlays can extend the shared config without replacing the file.
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
-- Neo-tree shows dotfiles by default so the file explorer matches the baseline preference for visible dotfiles.
 - `render-markdown.nvim` is added beyond Omarchy's `omarchy-nvim` baseline as a standalone plugin, using its default upstream setup for headless-safe Markdown rendering inside Neovim.
 - `obsidian.nvim` is added for Zettelkasten-based knowledge vault management via `~/vault`. It uses blink.cmp for completion (not nvim-cmp), disables its own UI in favor of `render-markdown.nvim`, and scopes loading to vault markdown files only. Legacy PascalCase commands are disabled.
 - Kept verbatim from `omarchy-nvim`: `transparency.lua`, `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
