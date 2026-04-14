@@ -11,7 +11,7 @@ If you also maintain Arch in WSL, use `dotfiles-wsl` as the additive WSL and Win
 Derivation model for this repo family:
 
 ```text
-dotfiles-ai                        cross-cutting AI harness configs
+AI harness configs              → dotfiles-ai
 Omarchy + personal deviations   → dotfiles-omarchy
 Omarchy + headless deviations   → dotfiles-arch
 dotfiles-arch + WSL overlay     → dotfiles-wsl
