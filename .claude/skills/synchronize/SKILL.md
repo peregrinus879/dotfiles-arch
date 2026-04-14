@@ -3,7 +3,7 @@ name: synchronize
 description: Sync this headless Arch baseline against Omarchy references and official docs. Covers the shared Linux packages owned by dotfiles-arch.
 ---
 
-# Synchronize Baseline
+# Synchronize
 
 Source configs from reference repos and official docs, compare against `dotfiles-arch`, and apply changes only where they belong in the shared Arch baseline.
 
@@ -15,6 +15,7 @@ Reference repos live under `~/projects/repos/references/`:
 
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package
+- `obsidian.nvim/` - obsidian.nvim plugin source
 - `miasma.nvim/` - Miasma color scheme source
 - `yazi/` - Yazi reference repo for configuration, theme, and feature changes
 
@@ -31,12 +32,13 @@ Reference repos live under `~/projects/repos/references/`:
 - [Git Docs](https://git-scm.com/docs) - config options and behavior
 - [Yazi Docs](https://yazi-rs.github.io/docs/) - configuration and themes
 - [btop](https://github.com/aristocratos/btop) - config options and themes
+- [obsidian.nvim Docs](https://github.com/obsidian-nvim/obsidian.nvim/wiki) - plugin configuration and API
 - [fastfetch Wiki](https://github.com/fastfetch-cli/fastfetch/wiki) - modules and JSON config
 
 ## When To Use
 
 - Use this skill when Omarchy or a reference repo changed materially.
-- Use this skill when shared baseline ownership or behavior changed materially.
+- Use this skill when baseline scope or behavior changed materially.
 - Use this skill when you suspect undocumented drift between this repo and its references.
 - Use this skill before broad sync-oriented doc updates.
 
@@ -47,14 +49,13 @@ Reference repos live under `~/projects/repos/references/`:
 3. For non-Omarchy tools such as Yazi, compare against `yazi/` and official docs
 4. For each difference, classify it:
    - **Intentional deviation**: documented in `DEVIATIONS.md`, should stay different
-   - **New upstream addition**: added in Omarchy after the last sync, should be reviewed for inclusion
-   - **Upstream change to existing config**: modified in Omarchy, needs review
+   - **New upstream addition**: added upstream after the last sync, should be reviewed for inclusion
+   - **Upstream change to existing config**: modified upstream, needs review
 5. Check `git log --format="%h %ad %s" --date=short -- <file>` on the relevant reference repo when you need to determine when a difference was introduced
 6. Cross-check differences against `DEVIATIONS.md`. If a difference is not documented there, treat it as a likely upstream change that needs review
 7. Apply new upstream additions and changes where they belong in the shared baseline
-8. Keep WSL-specific and Windows-specific behavior out of `dotfiles-arch`
-9. Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` when package ownership, setup steps, or documented deviations change
-10. Summarize which changes were adopted, rejected, or intentionally kept different
+8. Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` when package ownership, setup steps, or documented deviations change
+9. Summarize which changes were adopted, rejected, or intentionally kept different
 
 ## Completion Checks
 
@@ -65,8 +66,8 @@ Reference repos live under `~/projects/repos/references/`:
 ## Rules
 
 - Present proposed changes to the user before editing
-- Omarchy, official docs, official package docs, and `DEVIATIONS.md` are the source of truth for inherited behavior and intentional differences
-- Always check all relevant reference repos, not just one
+- Omarchy, official docs, official package docs, and `DEVIATIONS.md` are the source of truth for default behavior and intentional differences
+- Always check all relevant sources, not just one
 - Never assume a difference is intentional without verifying it is documented in `DEVIATIONS.md`
 - Do not add WSL-specific or Windows-specific behavior to this repo
 - Keep Neovim shared ownership clean: baseline config lives in `nvim/`, and any environment-specific overlay must remain outside this repo
