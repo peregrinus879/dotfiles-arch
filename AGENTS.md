@@ -61,6 +61,7 @@ It does not own:
 - Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
 - Treat `STRIX-HALO-ROCM.md` as optional host guidance, not as a baseline requirement
 - Put WSL and Windows-specific deviations in `dotfiles-wsl`
+- `obsidian.lua` is mirrored identically in `dotfiles-omarchy`; apply changes to both repos
 
 ## Maintainer Checklist
 
