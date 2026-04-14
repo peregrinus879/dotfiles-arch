@@ -1,3 +1,7 @@
+local function slugify(title)
+  return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+end
+
 return {
   {
     "obsidian-nvim/obsidian.nvim",
@@ -56,7 +60,7 @@ return {
       },
       note_id_func = function(title)
         if title ~= nil then
-          return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          return slugify(title)
         end
         return tostring(os.time())
       end,
@@ -81,7 +85,7 @@ return {
           end
 
           local stem = vim.fn.fnamemodify(old_path, ":t:r")
-          local slug = stem:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          local slug = slugify(stem)
 
           if slug == "" then
             vim.notify("Slug is empty after sanitizing", vim.log.levels.ERROR)
@@ -152,14 +156,13 @@ return {
             i = i + 1
           end
 
-          vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
-          vim.cmd("write")
           if vim.fn.rename(old_path, new_path) ~= 0 then
             vim.notify("Rename failed", vim.log.levels.ERROR)
             return
           end
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
           vim.api.nvim_buf_set_name(0, new_path)
-          vim.cmd("edit!")
+          vim.cmd("write")
           vim.notify("Renamed: " .. stem .. " -> " .. slug .. ".md", vim.log.levels.INFO)
         end,
         desc = "Rename note to slug",
