@@ -30,6 +30,18 @@ return {
         folder = "8-templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
+        customizations = {
+          ["literature.md"] = { notes_subdir = "2-literature" },
+          ["permanent.md"] = { notes_subdir = "3-permanent" },
+          ["writing.md"] = { notes_subdir = "4-writing" },
+          ["project.md"] = { notes_subdir = "5-projects" },
+          ["meeting.md"] = { notes_subdir = "6-meetings" },
+          ["index.md"] = { notes_subdir = "7-index" },
+          ["review.md"] = { notes_subdir = "0-daily" },
+        },
+      },
+      note = {
+        template = "fleeting.md",
       },
       completion = {
         blink = true,
@@ -51,6 +63,7 @@ return {
     },
     keys = {
       { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New note" },
+      { "<leader>oN", "<cmd>Obsidian new_from_template<cr>", desc = "New from template" },
       { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Find note" },
       { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Daily note" },
       { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search vault" },
