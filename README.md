@@ -115,7 +115,7 @@ Checklist before stowing:
 - `dotfiles-arch` was cloned locally
 - LazyVim starter was cloned into `~/.config/nvim`
 - `~/.config/git/config.local` exists with your local Git identity
-- Any existing conflicting dotfiles were removed
+- Any existing conflicting files were removed
 
 Remove existing files that would conflict with stow. The first block removes tree-folded directory symlinks left by a previous stow (harmless on a fresh machine). The second block removes individual config files:
 
@@ -200,7 +200,7 @@ nvim
 
 ## Verify
 
-After stowing the baseline:
+After stowing:
 
 - Confirm the core symlinks and local Git identity exist: `test -L ~/.bashrc && test -L ~/.config/starship.toml && test -L ~/.config/nvim/lua/config/options.lua && test -f ~/.config/git/config.local`
 - Start a fresh shell and confirm Bash, Starship, and Tmux load without errors.
@@ -208,15 +208,15 @@ After stowing the baseline:
 
 ## References
 
-- `README.md` - repo scope, package ownership, and setup
-- `DEVIATIONS.md` - intentional deviations from Omarchy and baseline boundaries
+- `README.md` - package layout, setup, and verification
+- `DEVIATIONS.md` - intentional deviations from Omarchy and boundary definitions
 - `STRIX-HALO-ROCM.md` - hardware-specific reference guide for ROCm-backed local models on compatible Strix Halo hosts
 - `AGENTS.md` - canonical repo-specific assistant context and maintainer checklist
 - `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
 
 ## Related Repos
 
-Clone these locally if you plan to use `/synchronize` or compare this baseline against upstream references. The `/synchronize` skill expects reference repos under `~/projects/repos/references/`.
+Clone these locally if you plan to use `/synchronize` or compare against upstream references. The `/synchronize` skill expects reference repos under `~/projects/repos/references/`.
 
 - `~/projects/repos/references/omarchy` - upstream Omarchy reference repo
 - `~/projects/repos/references/omarchy-pkgs` - upstream package reference repo
@@ -226,7 +226,7 @@ Clone these locally if you plan to use `/synchronize` or compare this baseline a
 
 ## Credits
 
-Adapted from [Omarchy](https://github.com/basecamp/omarchy). See [DEVIATIONS.md](DEVIATIONS.md) for intentional differences and baseline boundaries.
+Adapted from [Omarchy](https://github.com/basecamp/omarchy). See [DEVIATIONS.md](DEVIATIONS.md) for intentional differences and boundary definitions.
 
 ## License
 
