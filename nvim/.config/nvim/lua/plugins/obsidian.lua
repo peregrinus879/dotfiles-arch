@@ -1,5 +1,5 @@
 local function slugify(title)
-  return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+  return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):gsub("%-+", "-"):gsub("^%-", ""):gsub("%-$", ""):lower()
 end
 
 return {
@@ -105,55 +105,69 @@ return {
             return
           end
 
-          local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-          if lines[1] ~= "---" then
-            vim.notify("No frontmatter found", vim.log.levels.WARN)
-            return
-          end
-
           local ok = vim.fn.confirm("Rename to " .. slug .. ".md?", "&Yes\n&No", 2)
           if ok ~= 1 then return end
 
+          local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
           local new_lines = {}
-          local in_fm = false
-          local i = 1
-          while i <= #lines do
-            local line = lines[i]
-            if i == 1 and line == "---" then
-              in_fm = true
-              new_lines[#new_lines + 1] = line
-            elseif in_fm and line == "---" then
-              in_fm = false
-              new_lines[#new_lines + 1] = line
-            elseif in_fm and line:match("^id:") then
-              new_lines[#new_lines + 1] = "id: " .. slug
-              while i + 1 <= #lines and lines[i + 1]:match("^%s") do
-                i = i + 1
-              end
-            elseif in_fm and line:match("^aliases:") then
-              new_lines[#new_lines + 1] = "aliases:"
-              local existing = {}
-              while i + 1 <= #lines and lines[i + 1]:match("^%s+%-") do
-                i = i + 1
-                local val = lines[i]:match("^%s+-%s+(.*)")
-                if val and val:lower() ~= "untitled" then
-                  existing[#existing + 1] = val
+
+          if lines[1] == "---" then
+            local in_fm = false
+            local found_aliases = false
+            local i = 1
+            while i <= #lines do
+              local line = lines[i]
+              if i == 1 and line == "---" then
+                in_fm = true
+                new_lines[#new_lines + 1] = line
+              elseif in_fm and line == "---" then
+                if not found_aliases then
+                  new_lines[#new_lines + 1] = "aliases:"
+                  new_lines[#new_lines + 1] = "  - " .. stem
                 end
+                in_fm = false
+                new_lines[#new_lines + 1] = line
+              elseif in_fm and line:match("^id:") then
+                new_lines[#new_lines + 1] = "id: " .. slug
+                while i + 1 <= #lines and lines[i + 1]:match("^%s") do
+                  i = i + 1
+                end
+              elseif in_fm and line:match("^aliases:") then
+                found_aliases = true
+                new_lines[#new_lines + 1] = "aliases:"
+                local existing = {}
+                while i + 1 <= #lines and lines[i + 1]:match("^%s+%-") do
+                  i = i + 1
+                  local val = lines[i]:match("^%s+-%s+(.*)")
+                  if val and val ~= "" and val:lower() ~= "untitled" then
+                    existing[#existing + 1] = val
+                  end
+                end
+                local has_stem = false
+                for _, v in ipairs(existing) do
+                  if v == stem then has_stem = true end
+                end
+                if not has_stem then
+                  new_lines[#new_lines + 1] = "  - " .. stem
+                end
+                for _, v in ipairs(existing) do
+                  new_lines[#new_lines + 1] = "  - " .. v
+                end
+              else
+                new_lines[#new_lines + 1] = line
               end
-              local has_stem = false
-              for _, v in ipairs(existing) do
-                if v == stem then has_stem = true end
-              end
-              if not has_stem then
-                new_lines[#new_lines + 1] = "  - " .. stem
-              end
-              for _, v in ipairs(existing) do
-                new_lines[#new_lines + 1] = "  - " .. v
-              end
-            else
-              new_lines[#new_lines + 1] = line
+              i = i + 1
             end
-            i = i + 1
+          else
+            vim.list_extend(new_lines, {
+              "---",
+              "id: " .. slug,
+              "aliases:",
+              "  - " .. stem,
+              "tags: []",
+              "---",
+            })
+            vim.list_extend(new_lines, lines)
           end
 
           if vim.fn.rename(old_path, new_path) ~= 0 then
@@ -162,7 +176,7 @@ return {
           end
           vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
           vim.api.nvim_buf_set_name(0, new_path)
-          vim.cmd("write")
+          vim.cmd("write!")
           vim.notify("Renamed: " .. stem .. " -> " .. slug .. ".md", vim.log.levels.INFO)
         end,
         desc = "Rename note to slug",
