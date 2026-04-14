@@ -34,7 +34,7 @@ return {
           literature = { notes_subdir = "2-literature" },
           permanent = { notes_subdir = "3-permanent" },
           writing = { notes_subdir = "4-writing" },
-          project = { notes_subdir = "5-projects" },
+          ["project-charter"] = { notes_subdir = "5-projects" },
           meeting = { notes_subdir = "6-meetings" },
           index = { notes_subdir = "7-index" },
           review = { notes_subdir = "0-daily" },
