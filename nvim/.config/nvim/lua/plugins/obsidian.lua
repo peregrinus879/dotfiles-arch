@@ -2,14 +2,16 @@ local function slugify(title)
   return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):gsub("%-+", "-"):gsub("^%-", ""):gsub("%-$", ""):lower()
 end
 
+local vault_path = vim.env.HOME .. "/vault"
+
 return {
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
     lazy = true,
     event = {
-      "BufReadPre " .. vim.env.HOME .. "/vault/**.md",
-      "BufNewFile " .. vim.env.HOME .. "/vault/**.md",
+      "BufReadPre " .. vault_path .. "/**.md",
+      "BufNewFile " .. vault_path .. "/**.md",
     },
     cmd = { "Obsidian" },
     dependencies = {
@@ -20,7 +22,7 @@ return {
       workspaces = {
         {
           name = "vault",
-          path = "~/vault",
+          path = vault_path,
         },
       },
       notes_subdir = "1-fleeting",
@@ -75,11 +77,15 @@ return {
       { "<leader>ot", "<cmd>Obsidian template<cr>", desc = "Insert template" },
       { "<leader>ol", "<cmd>Obsidian links<cr>", desc = "Links" },
       { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image" },
+      -- Slug rename uses vim.fn.rename(), not :Obsidian rename. Old title is preserved
+      -- as an alias; both Obsidian and obsidian.nvim resolve [[wiki-links]] via aliases.
+      -- Upstream rename rewrites backlink text vault-wide, unnecessary for normalization.
+      -- Limitation: path-based markdown links [text](file.md) are not updated.
       {
         "<leader>or",
         function()
           local old_path = vim.api.nvim_buf_get_name(0)
-          if not old_path:find(vim.env.HOME .. "/vault/", 1, true) then
+          if not old_path:find(vault_path .. "/", 1, true) then
             vim.notify("Not in vault", vim.log.levels.WARN)
             return
           end
@@ -133,6 +139,11 @@ return {
                   i = i + 1
                 end
               elseif in_fm and line:match("^aliases:") then
+                local rest = line:match("^aliases:%s*(.*)$")
+                if rest and rest ~= "" and rest ~= "[]" then
+                  vim.notify("Inline aliases not supported by slug rename; convert to block style first", vim.log.levels.WARN)
+                  return
+                end
                 found_aliases = true
                 new_lines[#new_lines + 1] = "aliases:"
                 local existing = {}
