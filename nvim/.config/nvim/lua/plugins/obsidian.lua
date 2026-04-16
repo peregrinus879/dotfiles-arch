@@ -36,7 +36,6 @@ return {
           literature = { notes_subdir = "2-literature" },
           permanent = { notes_subdir = "3-permanent" },
           ["writing-short"] = { notes_subdir = "4-writing" },
-          ["writing-medium"] = { notes_subdir = "4-writing" },
           ["writing-long"] = { notes_subdir = "4-writing" },
           index = { notes_subdir = "5-index" },
         },
