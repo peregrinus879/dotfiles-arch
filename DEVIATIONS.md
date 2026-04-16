@@ -17,7 +17,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 3. **Keep `dotfiles-arch` as the baseline.** This repo should contain only shared Arch/Linux behavior. WSL-specific and Windows-specific adaptations belong in `dotfiles-wsl`.
 4. **Use GNU Stow for dotfile management.** Omarchy uses direct file copies and packaged assets. This repo uses symlink-based package ownership for clearer separation and reuse.
 5. **Single theme, no switching.** Omarchy supports many themes and hot-reload infrastructure. This repo uses Miasma only, so theme switching infrastructure is intentionally omitted.
-6. **Avoid AUR for the baseline.** Baseline packages should come from official Arch repos or upstream installers unless there is a concrete reason to add more complexity.
+6. **Baseline packages come from official Arch repos.** The baseline itself should not depend on AUR. `yay` is provided as the AUR helper so user packages outside the baseline can be installed and updated consistently alongside official repo packages.
 
 ## Reference Sources
 
@@ -52,6 +52,12 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `y()` is added for Yazi cd-on-exit support. Yazi is not part of Omarchy.
 - `mise`-specific shell handling is omitted from the baseline.
 - A shared repo auto-refresh helper is included but disabled by default. This is a personal workflow deviation from Omarchy so WSL and future Omarchy overlays can safely enable fetch plus fast-forward checks under `~/projects/repos` without changing the headless baseline behavior.
+- `alias pacman='yay'` routes `pacman` through `yay` so routine updates (`pacman -Syu`) cover official repos and AUR in one pass. Omarchy has no shell equivalent; its updates run through `omarchy-update-perform`, which chains `omarchy-update-system-pkgs` and `omarchy-update-aur-pkgs` and is Hyprland/desktop-bound.
+
+### AUR Helper
+
+- `yay` is bootstrapped from AUR (`git clone https://aur.archlinux.org/yay.git && makepkg -si`) rather than installed from the `omarchy` pacman repo. This baseline does not pull in the omarchy repo, so the upstream AUR path is the only source available.
+- `base-devel` is added to the prerequisite pacman install so `makepkg` can build `yay`. The Go toolchain required by the build is resolved on demand by `makepkg -si` rather than pre-installed.
 
 ### Starship
 
