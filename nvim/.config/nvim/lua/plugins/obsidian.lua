@@ -35,7 +35,9 @@ return {
           source = { notes_subdir = "1-sources" },
           literature = { notes_subdir = "2-literature" },
           permanent = { notes_subdir = "3-permanent" },
-          writing = { notes_subdir = "4-writing" },
+          ["writing-short"] = { notes_subdir = "4-writing" },
+          ["writing-medium"] = { notes_subdir = "4-writing" },
+          ["writing-long"] = { notes_subdir = "4-writing" },
           index = { notes_subdir = "5-index" },
         },
       },
@@ -112,6 +114,7 @@ return {
           if lines[1] == "---" then
             local in_fm = false
             local found_aliases = false
+            local found_type = false
             local i = 1
             while i <= #lines do
               local line = lines[i]
@@ -123,6 +126,9 @@ return {
                   new_lines[#new_lines + 1] = "aliases:"
                   new_lines[#new_lines + 1] = "  - " .. stem
                 end
+                if not found_type then
+                  new_lines[#new_lines + 1] = "type:"
+                end
                 in_fm = false
                 new_lines[#new_lines + 1] = line
               elseif in_fm and line:match("^id:") then
@@ -130,6 +136,9 @@ return {
                 while i + 1 <= #lines and lines[i + 1]:match("^%s") do
                   i = i + 1
                 end
+              elseif in_fm and line:match("^type:") then
+                found_type = true
+                new_lines[#new_lines + 1] = line
               elseif in_fm and line:match("^aliases:") then
                 local rest = line:match("^aliases:%s*(.*)$")
                 if rest and rest ~= "" and rest ~= "[]" then
@@ -168,6 +177,7 @@ return {
               "aliases:",
               "  - " .. stem,
               "tags: []",
+              "type:",
               "---",
             })
             vim.list_extend(new_lines, lines)
