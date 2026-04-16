@@ -69,9 +69,21 @@ Key ownership rules:
 Install the baseline packages required by these dotfiles:
 
 ```bash
-sudo pacman -S --needed bash-completion bat btop eza fastfetch fd fzf gcc git github-cli gum \
+sudo pacman -S --needed base-devel bash-completion bat btop eza fastfetch fd fzf gcc git github-cli gum \
   jq lazygit less neovim openssh ripgrep shellcheck starship stow sudo tmux which yazi zoxide
 ```
+
+`base-devel` is included so `makepkg` can build AUR packages.
+
+Bootstrap `yay` from AUR so AUR packages can be installed and included in routine updates:
+
+```bash
+git clone https://aur.archlinux.org/yay.git /tmp/yay
+( cd /tmp/yay && makepkg -si )
+rm -rf /tmp/yay
+```
+
+The Go toolchain required to build `yay` is pulled in on demand by `makepkg -si` during the bootstrap.
 
 Nerd Font support is needed only in the client terminal used to connect to the machine. A headless Arch host does not need a local font package installed for `tmux`, `nvim`, `yazi`, `starship`, or `fastfetch` icons to render correctly over SSH.
 
@@ -121,6 +133,7 @@ Create `~/.config/git/config.local` with your local identity:
 Checklist before stowing:
 
 - Required packages are installed
+- `yay` is installed
 - `dotfiles-arch` was cloned locally
 - LazyVim starter was cloned into `~/.config/nvim`
 - `~/.config/git/config.local` exists with your local Git identity
