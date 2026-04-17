@@ -54,6 +54,12 @@ It does not own:
 - Keep all intentional differences documented in `DEVIATIONS.md`
 - Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
 
+## Future Enhancements
+
+- **Makefile automation**: Wrap stow/unstow/dry-run, `make verify` for symlink and syntax checks, `make clean` for README "Prepare" cleanup steps. Combined stow order across repos: dotfiles-ai, dotfiles-arch, dotfiles-wsl.
+- **ShellCheck**: Makefile target or pre-commit hook covering `bash/.bashrc` and `bash/.config/bash/*`. `shellcheck` is already in the baseline package list.
+- **Windows Terminal drift detection**: Script to checksum tracked `settings.json` against the deployed Windows-side file at `/mnt/c/Users/.../LocalState/settings.json`. Relevant to dotfiles-wsl as well.
+
 ## Maintainer Checklist
 
 1. Review the local reference repos and official docs for upstream changes to owned packages.
