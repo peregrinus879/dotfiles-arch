@@ -15,7 +15,6 @@ Reference repos live under `~/projects/repos/references/`:
 
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package
-- `obsidian.nvim/` - obsidian.nvim plugin source
 - `miasma.nvim/` - Miasma color scheme source
 - `yazi/` - Yazi reference repo for configuration, theme, and feature changes
 
@@ -32,7 +31,6 @@ Reference repos live under `~/projects/repos/references/`:
 - [Git Docs](https://git-scm.com/docs) - config options and behavior
 - [Yazi Docs](https://yazi-rs.github.io/docs/) - configuration and themes
 - [btop](https://github.com/aristocratos/btop) - config options and themes
-- [obsidian.nvim Docs](https://github.com/obsidian-nvim/obsidian.nvim/wiki) - plugin configuration and API
 - [fastfetch Wiki](https://github.com/fastfetch-cli/fastfetch/wiki) - modules and JSON config
 
 ## When To Use

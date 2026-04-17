@@ -23,7 +23,6 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 - [basecamp/omarchy](https://github.com/basecamp/omarchy) - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - [omacom-io/omarchy-pkgs](https://github.com/omacom-io/omarchy-pkgs) - package builds, including the Omarchy Neovim package
-- [obsidian-nvim/obsidian.nvim](https://github.com/obsidian-nvim/obsidian.nvim) - obsidian.nvim plugin source
 - [xero/miasma.nvim](https://github.com/xero/miasma.nvim) - Miasma color scheme source
 
 ## Intentional Deviations
@@ -73,14 +72,6 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `lua/config/options.lua` lives in the shared `nvim/` package, matching Omarchy's single shared `options.lua` ownership model.
 - `options.lua` keeps Omarchy's `vim.opt.relativenumber = false` baseline and loads an optional `lua/config/overlay.lua` when present so environment overlays can extend the shared config without replacing the file.
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
-- `render-markdown.nvim` is added beyond the `omarchy-nvim` baseline as a standalone plugin, using its default upstream setup for headless-safe Markdown rendering inside Neovim.
-- `obsidian.nvim` is added beyond the `omarchy-nvim` baseline for Zettelkasten-based knowledge vault management. Deviations from plugin defaults:
-  - Custom `note_id_func` generates deterministic kebab-case slugs from titles instead of random Zettel IDs.
-  - Daily notes, new notes, templates, and attachments each route to dedicated subfolders. Template customizations route each type to its designated subfolder.
-  - UI is disabled in favor of `render-markdown.nvim`. Completion uses blink.cmp instead of nvim-cmp. Legacy PascalCase commands are disabled.
-  - Custom `<leader>o` keybindings for built-in plugin commands replace the plugin's minimal buffer-local defaults. `<leader>oN` creates notes from templates, routing each type to its designated subfolder.
-  - `<leader>or` is a custom function that normalizes notes created in the Obsidian apps: renames the file to its kebab-case slug, sets `id` in frontmatter, and populates `aliases` from the original filename.
-  - Date and time formats use strftime notation; output is identical to the plugin defaults.
 - Kept verbatim from `omarchy-nvim`: `transparency.lua`, `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
 
 ### Fastfetch

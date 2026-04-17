@@ -9,7 +9,6 @@ This repo carries the shared Linux baseline for terminal-first headless Arch env
 It owns:
 
 - shared GNU Stow packages for Bash, Git, Neovim, tmux, starship, fastfetch, btop, editorconfig, and Yazi
-- Neovim obsidian.nvim plugin configuration for the `~/vault` knowledge vault
 - shared helper logic that overlays may enable without changing baseline ownership
 - baseline setup and maintenance docs
 
@@ -34,7 +33,6 @@ It does not own:
 ## Setup Invariants
 
 - `nvim/` assumes the LazyVim starter was cloned into `~/.config/nvim` first
-- `nvim/` includes `obsidian.nvim` configured for `~/vault`; the vault repo is maintained separately
 - Bash may load additive machine-specific overlays from `~/.config/bash-overlays/` after the shared init
 - Git identity is expected in the untracked local file `~/.config/git/config.local`
 - Nerd Font rendering comes from the client terminal, not the headless Arch host
@@ -55,7 +53,6 @@ It does not own:
 - Keep changes within the baseline scope of this repo
 - Keep all intentional differences documented in `DEVIATIONS.md`
 - Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
-- `obsidian.lua` is maintained identically across dotfiles repos; apply changes to all copies
 
 ## Maintainer Checklist
 
