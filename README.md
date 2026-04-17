@@ -46,7 +46,7 @@ btop/          System monitor config (btop.conf, themes/miasma.theme)
 editorconfig/  Editor formatting rules (.editorconfig)
 fastfetch/     System info config (config.jsonc)
 git/           Git config (config, ignore)
-nvim/          Shared Neovim config (lazyvim.json, lua/config/, lua/plugins/colorscheme + utilities, plugin/after/)
+nvim/          Shared Neovim config (lazyvim.json, lua/config/, lua/plugins/colorscheme + utilities, after/plugin/)
 starship/      Prompt config (starship.toml)
 tmux/          Tmux config (tmux.conf)
 yazi/          File manager config (yazi.toml, theme.toml)
@@ -161,7 +161,7 @@ rm -f ~/.config/nvim/lua/plugins/example.lua
 rm -f ~/.config/nvim/lua/plugins/colorscheme.lua
 rm -f ~/.config/nvim/lua/plugins/disable-news-alert.lua
 rm -f ~/.config/nvim/lua/plugins/snacks-animated-scrolling-off.lua
-rm -f ~/.config/nvim/plugin/after/transparency.lua
+rm -f ~/.config/nvim/after/plugin/transparency.lua
 ```
 
 ### 6. Stow
