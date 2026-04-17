@@ -72,7 +72,8 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `lua/config/options.lua` lives in the shared `nvim/` package, matching Omarchy's single shared `options.lua` ownership model.
 - `options.lua` keeps Omarchy's `vim.opt.relativenumber = false` baseline and loads an optional `lua/config/overlay.lua` when present so environment overlays can extend the shared config without replacing the file.
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
-- Kept verbatim from `omarchy-nvim`: `transparency.lua`, `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
+- Kept verbatim from `omarchy-nvim`: `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
+- `transparency.lua` content is verbatim from `omarchy-nvim` but relocated from `plugin/after/` to `after/plugin/` to use Neovim's actual after-load mechanism. Upstream `omarchy-nvim` still uses the incorrect path.
 
 ### Fastfetch
 
