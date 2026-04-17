@@ -18,7 +18,7 @@ dotfiles-arch + WSL overlay     → dotfiles-wsl
 ```
 
 - [`dotfiles-ai`](https://github.com/peregrinus879/dotfiles-ai) - AI harness configs: Claude Code and OpenCode settings, shared guidance, and commit workflow
-- [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Personal Omarchy customizations: Bash overrides, Hyprland bindings, Neovim plugins, and Yazi
+- [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Personal Omarchy customizations: Bash overrides, Hyprland bindings, and Yazi
 - [`dotfiles-arch`](https://github.com/peregrinus879/dotfiles-arch) - Shared Arch Linux terminal baseline: Bash, Tmux, Neovim, Starship, Git, Yazi, btop, and fastfetch
 - [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - WSL overlay for dotfiles-arch: Windows Terminal, clipboard integration, and repo auto-refresh
 
@@ -46,7 +46,7 @@ btop/          System monitor config (btop.conf, themes/miasma.theme)
 editorconfig/  Editor formatting rules (.editorconfig)
 fastfetch/     System info config (config.jsonc)
 git/           Git config (config, ignore)
-nvim/          Shared Neovim config (lazyvim.json, lua/config/, lua/plugins/, plugin/after/)
+nvim/          Shared Neovim config (lazyvim.json, lua/config/, lua/plugins/colorscheme + utilities, plugin/after/)
 starship/      Prompt config (starship.toml)
 tmux/          Tmux config (tmux.conf)
 yazi/          File manager config (yazi.toml, theme.toml)
@@ -161,7 +161,6 @@ rm -f ~/.config/nvim/lua/plugins/example.lua
 rm -f ~/.config/nvim/lua/plugins/colorscheme.lua
 rm -f ~/.config/nvim/lua/plugins/disable-news-alert.lua
 rm -f ~/.config/nvim/lua/plugins/snacks-animated-scrolling-off.lua
-rm -f ~/.config/nvim/lua/plugins/obsidian.lua
 rm -f ~/.config/nvim/plugin/after/transparency.lua
 ```
 
