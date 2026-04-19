@@ -325,10 +325,10 @@ Expected on the validated host:
 
 ### 13. Optional OpenCode integration
 
-Install OpenCode on Arch:
+Install OpenCode from upstream:
 
 ```bash
-sudo pacman -Syu opencode
+curl -fsSL https://opencode.ai/install | bash
 ```
 
 OpenCode's Ollama provider uses the local OpenAI-compatible endpoint:
