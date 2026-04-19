@@ -64,6 +64,8 @@ Key ownership rules:
 
 ## Setup
 
+For a bare-metal install on a new disk, work through `BACKUP.md` and `INSTALL.md` first. Those cover the pre-install capture and the dual-SSD system install that sits beneath this dotfiles layer.
+
 ### 1. Prerequisites
 
 Install the baseline packages required by these dotfiles:
@@ -231,6 +233,8 @@ After stowing:
 
 - `README.md` - package layout, setup, and verification
 - `DEVIATIONS.md` - intentional deviations from Omarchy and boundary definitions
+- `BACKUP.md` - pre-install backup runbook, run before a primary-disk wipe
+- `INSTALL.md` - dual-SSD host install runbook with archinstall and secondary-disk setup
 - `STRIX-HALO-ROCM.md` - hardware-specific reference guide for ROCm-backed local models on compatible Strix Halo hosts
 - `AGENTS.md` - canonical repo-specific assistant context and maintainer checklist
 - `CLAUDE.md` - thin Claude Code wrapper importing `AGENTS.md`
