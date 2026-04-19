@@ -27,6 +27,8 @@ It does not own:
 
 - `README.md` - package layout, setup, and verification
 - `DEVIATIONS.md` - intentional deviations from Omarchy and boundary definitions
+- `BACKUP.md` - pre-install backup runbook for a headless hub
+- `INSTALL.md` - dual-SSD host install runbook with archinstall and secondary-disk setup
 - `STRIX-HALO-ROCM.md` - optional host-specific guide for ROCm-backed local models on compatible AMD Strix Halo systems
 - `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
 
@@ -41,6 +43,8 @@ It does not own:
 
 - `DEVIATIONS.md` for upstream GitHub URLs and boundary definitions
 - `.claude/skills/synchronize/SKILL.md` for local reference repo paths and official docs
+- `BACKUP.md` for the pre-install capture that runs before a primary-disk wipe
+- `INSTALL.md` for the bare-metal install and dual-SSD storage layout
 - `STRIX-HALO-ROCM.md` is optional host-specific guidance, not baseline setup
 
 ## Skills
