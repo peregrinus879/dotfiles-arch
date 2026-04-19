@@ -23,7 +23,7 @@ Out of scope:
 - ROCm and Ollama prep (`STRIX-HALO-ROCM.md`)
 - encrypted vault recovery (`vault/SELF-HOSTING.md` §7)
 - backup policy (`BACKUP.md`)
-- BIOS tuning unrelated to storage (see `STRIX-HALO-ROCM.md` §1 for the VRAM carve-out if applicable)
+- non-storage BIOS tuning, for example the VRAM carve-out in `STRIX-HALO-ROCM.md` §1 if applicable
 
 ## Hardware layout
 
@@ -63,9 +63,9 @@ Make the following selections; accept defaults for anything not called out.
 
 ### 1. Disk configuration
 
-- Mode: `Manage disks and partitions`.
+- Open the disk configuration menu.
 - Target: **primary** device only. Leave the secondary untouched in this step; it is configured post-install to reduce the chance of wiping the wrong drive.
-- Layout: `Best-effort default partitioning` for the primary.
+- Layout: accept archinstall's default or best-effort partition layout for the primary.
 - Filesystem: `btrfs`.
 - Subvolume layout: accept archinstall's default btrfs subvolume layout.
 - Compression: enable btrfs compression if prompted; default is `zstd`.
@@ -122,7 +122,7 @@ Skip the lines that do not apply.
 
 The hub is not on Tailscale yet. Use one of these paths for the first connection:
 
-- **LAN SSH**: connect to the DHCP-assigned LAN IP using the key you pasted into archinstall.
+- **LAN SSH**: connect to the DHCP-assigned LAN IP using the key you pasted into archinstall. Find the LAN IP from your router's DHCP lease table, or briefly attach a monitor and keyboard to run `ip addr`.
 - **Physical console**: monitor plus keyboard on the hub.
 
 ### 3. Bring up Tailscale
@@ -164,7 +164,7 @@ Follow these in order after first-boot access is stable:
 2. Recreate the local git identity file at `~/.config/git/config.local` per `README.md` §4.
 3. If the host needs ROCm and local-model prep, follow `STRIX-HALO-ROCM.md` end to end.
 4. Restore the encrypted vault per `vault/SELF-HOSTING.md` §7 using the GPG key and git-crypt key from the backup bundle.
-5. Restore AI harness per-project memory from the backup: `rsync -aHAX <client>:Downloads/backup/claude/projects/ ~/.claude/projects/`.
+5. From your client machine, push AI harness per-project memory back to the hub: `rsync -aHAX ~/Downloads/backup/claude/projects/ "$HUB":.claude/projects/`.
 
 ## Secondary SSD setup
 
