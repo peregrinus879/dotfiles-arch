@@ -136,18 +136,14 @@ rsync -aHAX "$HUB:.claude/projects/" "$BACKUP/claude/projects/"
 
 Includes each project's `memory/` subdir and any pinned plans. Large `sessions/` history inside each project is included too; prune after restore if not wanted.
 
-### 3.2 Claude Code global files
+### 3.2 Claude Code top-level state
 
 ```bash
-rsync -aHAX \
-  --include='memory/***' \
-  --include='tasks/***' \
-  --include='plans/***' \
-  --exclude='*' \
-  "$HUB:.claude/" "$BACKUP/claude/"
+rsync -aHAX "$HUB:.claude/tasks/" "$BACKUP/claude/tasks/" 2>/dev/null
+rsync -aHAX "$HUB:.claude/plans/" "$BACKUP/claude/plans/" 2>/dev/null
 ```
 
-Skip `sessions/`, `shell-snapshots/`, `cache/`, `downloads/`, `paste-cache/`, `backups/`, `file-history/` as ephemeral.
+Per-project memory is already covered by §3.1. Skip `sessions/`, `shell-snapshots/`, `cache/`, `downloads/`, `paste-cache/`, `backups/`, `file-history/` as ephemeral.
 
 ### 3.3 Auth state
 
@@ -175,7 +171,17 @@ ssh "$HUB" 'sudo tar -cf - \
 
 `/etc/fstab` is captured for reference when rebuilding the secondary-SSD mount entry in `INSTALL.md`, not for literal restore.
 
-### 4.2 ROCm and Ollama plumbing
+### 4.2 User systemd units
+
+Custom user units (for example the vault auto-commit timer from `vault/SELF-HOSTING.md` §5) live outside `/etc` and are not captured by §4.1:
+
+```bash
+rsync -aHAX "$HUB:.config/systemd/user/" "$BACKUP/systemd-user/" 2>/dev/null
+```
+
+After reinstall, restore to the same path and re-enable with `systemctl --user enable --now <unit>`.
+
+### 4.3 ROCm and Ollama plumbing
 
 `/etc/modprobe.d/ttm.conf` is captured above. The canonical recipe to regenerate it after reinstall lives in `STRIX-HALO-ROCM.md` §3. Do not restore it blindly on a different host.
 
@@ -223,7 +229,13 @@ Selective hidden captures worth checking:
 ssh "$HUB" 'ls ~/.local/bin 2>/dev/null; du -sh ~/.local/share 2>/dev/null'
 ```
 
-Copy `~/.local/bin/` if it holds custom scripts. `~/.local/share/` is app-specific; inspect before copying to avoid dragging in regenerable caches.
+If `~/.local/bin/` holds custom scripts, copy it explicitly:
+
+```bash
+rsync -aHAX "$HUB:.local/bin/" "$BACKUP/local-bin/" 2>/dev/null
+```
+
+`~/.local/share/` is app-specific; inspect before copying to avoid dragging in regenerable caches.
 
 ## 7. Application state
 
