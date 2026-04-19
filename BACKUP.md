@@ -214,7 +214,7 @@ Probe footprints first so the copy step sizes correctly:
 ssh "$HUB" 'du -sh ~/Documents ~/Downloads ~/Pictures ~/Videos ~/Music ~/Desktop 2>/dev/null'
 ```
 
-For each populated directory, rsync to the client:
+For each populated directory, rsync to the client. `~/Downloads` is probed above for sizing only; add an rsync line if the hub holds something there worth keeping:
 
 ```bash
 rsync -aHAX --info=progress2 "$HUB:Documents/" "$BACKUP/Documents/"
