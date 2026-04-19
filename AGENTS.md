@@ -57,6 +57,7 @@ It does not own:
 - Keep changes within the baseline scope of this repo
 - Keep all intentional differences documented in `DEVIATIONS.md`
 - Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
+- Update `BACKUP.md` and `INSTALL.md` together when install or pre-install capture assumptions change
 
 ## Future Enhancements
 
@@ -69,6 +70,6 @@ It does not own:
 1. Review the local reference repos and official docs for upstream changes to owned packages.
 2. Use `/synchronize` or compare manually against the upstream references.
 3. Confirm every intentional difference is still documented in `DEVIATIONS.md`.
-4. Update `README.md` when package ownership, setup steps, or verification steps change.
+4. Update `README.md` when package ownership, setup steps, or verification steps change; update `BACKUP.md` and `INSTALL.md` when install or pre-install capture assumptions change.
 5. Confirm the setup invariants still hold: LazyVim starter, `~/.config/git/config.local`, package list, and Stow targets.
 6. Start a fresh shell and Neovim session after structural changes to verify everything still loads cleanly.
