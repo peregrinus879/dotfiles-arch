@@ -54,7 +54,6 @@ Power on and enter the firmware setup to confirm:
 
 - Both NVMe devices are detected.
 - Boot order lists the USB installer above the internal disks.
-- Any BIOS tuning documented in `STRIX-HALO-ROCM.md` §1 is still applied; OS reinstall does not reset firmware settings but the BIOS screen is a good opportunity to double-check.
 
 ## archinstall on the primary
 
@@ -74,7 +73,7 @@ Make the following selections; accept defaults for anything not called out.
 
 ### 2. Bootloader
 
-Accept archinstall's default bootloader for the primary. The chosen bootloader and unified kernel image path are captured by archinstall; note them for `STRIX-HALO-ROCM.md` §4 later.
+Select `limine` as the bootloader with a mkinitcpio-generated UKI. archinstall writes the UKI to `/boot/EFI/Linux/arch-linux.efi`.
 
 ### 3. Swap
 
