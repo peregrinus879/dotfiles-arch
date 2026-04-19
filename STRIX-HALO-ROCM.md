@@ -50,6 +50,8 @@ Do not assume those exact numbers fit every Strix Halo machine. Lower-memory sys
 
 Follow this sequence in the validated order.
 
+This guide assumes Arch is already installed on the host. For the underlying dual-SSD install, see `INSTALL.md`.
+
 For Ollama, use the official upstream installer. An Arch `ollama` package path was not required on this host.
 
 ### 1. Set BIOS VRAM low
