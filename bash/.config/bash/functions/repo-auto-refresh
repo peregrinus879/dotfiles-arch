@@ -21,7 +21,7 @@ __repo_auto_refresh_has_in_progress_state() {
 
 __repo_auto_refresh_run() {
   local force="${1:-0}"
-  local scope_root="${REPO_AUTO_REFRESH_ROOT:-$HOME/projects/repos}"
+  local scope_root="${REPO_AUTO_REFRESH_ROOT:-$HOME/Projects/repos}"
   local interval="${REPO_AUTO_REFRESH_INTERVAL:-300}"
   local repo_root repo_name git_dir now ahead behind status_output
 

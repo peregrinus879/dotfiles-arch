@@ -60,7 +60,7 @@ Key ownership rules:
 - Bash overlay filenames should be descriptive by default; use numeric prefixes only when multiple overlay files need explicit lexicographic load ordering
 - the shared Bash repo auto-refresh helper is present here but stays disabled unless an overlay enables it
   - overlays enable it by exporting `REPO_AUTO_REFRESH=1` and calling `enable_repo_auto_refresh`
-  - tunable via `REPO_AUTO_REFRESH_ROOT` (default `~/projects/repos`) and `REPO_AUTO_REFRESH_INTERVAL` (default `300` seconds)
+  - tunable via `REPO_AUTO_REFRESH_ROOT` (default `~/Projects/repos`) and `REPO_AUTO_REFRESH_INTERVAL` (default `300` seconds)
 
 ## Setup
 
@@ -96,13 +96,13 @@ Optional: for preparing a compatible AMD Strix Halo host for ROCm-backed local m
 Recommended local layout for this repo family:
 
 ```text
-~/projects/repos/dotfiles/dotfiles-arch
+~/Projects/repos/dotfiles/dotfiles-arch
 ```
 
 Stow can work from any clone location, but the related docs and cross-repo maintenance workflows assume this layout.
 
 ```bash
-git clone https://github.com/peregrinus879/dotfiles-arch.git ~/projects/repos/dotfiles/dotfiles-arch
+git clone https://github.com/peregrinus879/dotfiles-arch.git ~/Projects/repos/dotfiles/dotfiles-arch
 ```
 
 ### 3. Neovim Base
@@ -171,7 +171,7 @@ rm -f ~/.config/nvim/after/plugin/transparency.lua
 Create symlinks for all packages:
 
 ```bash
-cd ~/projects/repos/dotfiles/dotfiles-arch
+cd ~/Projects/repos/dotfiles/dotfiles-arch
 stow -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -180,7 +180,7 @@ Start a new terminal session, or run `source ~/.bashrc`, for the shell config to
 ### Unstow
 
 ```bash
-cd ~/projects/repos/dotfiles/dotfiles-arch
+cd ~/Projects/repos/dotfiles/dotfiles-arch
 stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -189,7 +189,7 @@ stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 Preview what stow would do without making changes:
 
 ```bash
-cd ~/projects/repos/dotfiles/dotfiles-arch
+cd ~/Projects/repos/dotfiles/dotfiles-arch
 stow -v -n -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -198,7 +198,7 @@ stow -v -n -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 To update symlinks after the repo content changes (same clone path):
 
 ```bash
-cd ~/projects/repos/dotfiles/dotfiles-arch
+cd ~/Projects/repos/dotfiles/dotfiles-arch
 stow -R -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -207,7 +207,7 @@ To migrate from a different clone path, unstow from the old location first:
 ```bash
 cd /old/clone/path
 stow -D -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
-cd ~/projects/repos/dotfiles/dotfiles-arch
+cd ~/Projects/repos/dotfiles/dotfiles-arch
 stow -v -t ~ bash btop editorconfig fastfetch git nvim starship tmux yazi
 ```
 
@@ -241,13 +241,13 @@ After stowing:
 
 ## Related Repos
 
-Clone these locally if you plan to use `/synchronize` or compare against upstream references. The `/synchronize` skill expects reference repos under `~/projects/repos/references/`.
+Clone these locally if you plan to use `/synchronize` or compare against upstream references. The `/synchronize` skill expects reference repos under `~/Projects/repos/references/`.
 
-- `~/projects/repos/references/omarchy` - upstream Omarchy reference repo
-- `~/projects/repos/references/omarchy-pkgs` - upstream package reference repo
-- `~/projects/repos/references/miasma.nvim` - Miasma theme reference repo
-- `~/projects/repos/references/yazi` - Yazi reference repo
-- `~/projects/repos/dotfiles/dotfiles-wsl` - optional WSL overlay built on top of this baseline
+- `~/Projects/repos/references/omarchy` - upstream Omarchy reference repo
+- `~/Projects/repos/references/omarchy-pkgs` - upstream package reference repo
+- `~/Projects/repos/references/miasma.nvim` - Miasma theme reference repo
+- `~/Projects/repos/references/yazi` - Yazi reference repo
+- `~/Projects/repos/dotfiles/dotfiles-wsl` - optional WSL overlay built on top of this baseline
 
 ## Credits
 
