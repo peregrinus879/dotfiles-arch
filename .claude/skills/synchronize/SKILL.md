@@ -11,7 +11,7 @@ Source configs from reference repos and official docs, compare against `dotfiles
 
 ### Reference Repos
 
-Reference repos live under `~/projects/repos/references/`:
+Reference repos live under `~/Projects/repos/references/`:
 
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package

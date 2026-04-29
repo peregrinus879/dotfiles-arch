@@ -60,7 +60,7 @@ Any uncommitted, stashed, or unpushed work will be lost unless committed and pus
 
 ```bash
 ssh "$HUB" bash <<'EOF'
-for d in ~/projects/repos/dotfiles/* ~/projects/repos/templates/* ~/vault; do
+for d in ~/Projects/repos/dotfiles/* ~/Projects/repos/templates/* ~/Projects/vault; do
   [ -d "$d/.git" ] || continue
   printf '=== %s ===\n' "$d"
   git -C "$d" status --short --branch
@@ -95,7 +95,7 @@ File names match `vault/SELF-HOSTING.md` §3.4 so the §7 recovery path works wi
 ### 2.2 git-crypt symmetric key
 
 ```bash
-ssh "$HUB" 'cd ~/vault && git-crypt export-key -' > "$BACKUP/vault-git-crypt.key"
+ssh "$HUB" 'cd ~/Projects/vault && git-crypt export-key -' > "$BACKUP/vault-git-crypt.key"
 ```
 
 ### 2.3 SSH keys
@@ -256,7 +256,7 @@ State at `/var/lib/tailscale/` is not backed up. Re-auth with `sudo tailscale up
 
 ### 7.3 Obsidian
 
-`~/vault/.obsidian/` is tracked inside the vault repo with Syncthing and git-crypt. Recovered by following `vault/SELF-HOSTING.md` §7 after install. No separate backup needed.
+`~/Projects/vault/.obsidian/` is tracked inside the vault repo with Syncthing and git-crypt. Recovered by following `vault/SELF-HOSTING.md` §7 after install. No separate backup needed.
 
 ## 8. Verify
 

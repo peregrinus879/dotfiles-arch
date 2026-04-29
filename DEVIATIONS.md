@@ -50,7 +50,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `cx` omits Omarchy's `--allow-dangerously-skip-permissions` flag.
 - `y()` is added for Yazi cd-on-exit support. Yazi is not part of Omarchy.
 - `mise`-specific shell handling is omitted from the baseline.
-- A shared repo auto-refresh helper is included but disabled by default. This is a personal workflow deviation from Omarchy so WSL and future Omarchy overlays can safely enable fetch plus fast-forward checks under `~/projects/repos` without changing the headless baseline behavior.
+- A shared repo auto-refresh helper is included but disabled by default. This is a personal workflow deviation from Omarchy so WSL and future Omarchy overlays can safely enable fetch plus fast-forward checks under `~/Projects/repos` without changing the headless baseline behavior.
 - `alias pacman='yay'` routes `pacman` through `yay` so routine updates (`pacman -Syu`) cover official repos and AUR in one pass. Omarchy has no shell equivalent; its updates run through `omarchy-update-perform`, which chains `omarchy-update-system-pkgs` and `omarchy-update-aur-pkgs` and is Hyprland/desktop-bound.
 
 ### AUR Helper
