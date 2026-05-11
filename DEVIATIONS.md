@@ -23,7 +23,8 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 
 - [basecamp/omarchy](https://github.com/basecamp/omarchy) - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - [omacom-io/omarchy-pkgs](https://github.com/omacom-io/omarchy-pkgs) - package builds, including the Omarchy Neovim package
-- [xero/miasma.nvim](https://github.com/xero/miasma.nvim) - Miasma color scheme source
+- [OldJobobo/miasma.nvim](https://github.com/OldJobobo/miasma.nvim) - Miasma Neovim plugin used by Omarchy (optimized fork of `xero/miasma.nvim`)
+- `themes/miasma/colors.toml` in `basecamp/omarchy` - canonical Miasma palette source of truth
 
 ## Intentional Deviations
 
@@ -58,14 +59,25 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `yay` is bootstrapped from AUR (`git clone https://aur.archlinux.org/yay.git && makepkg -si`) rather than installed from the `omarchy` pacman repo. This baseline does not pull in the omarchy repo, so the upstream AUR path is the only source available.
 - `base-devel` is added to the prerequisite pacman install so `makepkg` can build `yay`. The Go toolchain required by the build is resolved on demand by `makepkg -si` rather than pre-installed.
 
+### Git
+
+- `~/.config/git/config` opens with `[include] path = ~/.config/git/config.local` so the local untracked `[user]` block is loaded first. Omarchy installs identity into the tracked file directly during install.
+- `[init] defaultBranch = main` replaces Omarchy's `master`.
+- Inline option comments are removed because the same intent is captured in this file. Omarchy keeps inline comments next to each option.
+
 ### Starship
 
 - The prompt shows `hostname` only during SSH sessions so remote shells are visually distinct from local ones while keeping the local prompt minimal.
+- The `conflicted`, `up_to_date`, and `modified` Git status icons use Material Design Icons codepoints instead of Omarchy's Nerd Font private-use codepoints, matching the same broader-terminal-font compatibility rationale used for Fastfetch.
 
 ### Tmux Dev Layout
 
 - `tdl` keeps the local split ratios from this dotfiles setup rather than mirroring Omarchy exactly: 50% editor and 50% AI in the top 85%, with a 15% bottom terminal pane.
 - `tdl` guards AI panes with a per-pane `allow-passthrough off` during initialization, restoring it after 1 second via a background subshell. This prevents DCS passthrough responses from OpenCode's TUI init being misrouted to the editor pane during the focus transition, which causes Neovim E349 on startup. Claude Code is not affected. Proposed upstream in [basecamp/omarchy#5256](https://github.com/basecamp/omarchy/pull/5256).
+
+### Tmux Status Theme
+
+- Status bar accents are hardcoded to the canonical Miasma palette (`#78824b` accent, `#222222` background) sourced from `themes/miasma/colors.toml` in `basecamp/omarchy`. Omarchy uses terminal-palette names (`blue`, `black`) and relies on the active theme to bind those palette slots to Miasma values at runtime via `omarchy-theme-set`. The headless baseline has no theme-switching infrastructure and no terminal config of its own, so hardcoded hex locks the tmux status bar to Miasma regardless of which terminal client connects.
 
 ### Neovim
 
@@ -74,6 +86,7 @@ Omarchy is an opinionated Arch Linux distribution targeting a full desktop envir
 - `all-themes.lua` and `omarchy-theme-hotreload.lua` are omitted because the baseline uses Miasma only.
 - Kept verbatim from `omarchy-nvim`: `disable-news-alert.lua`, `snacks-animated-scrolling-off.lua`, and `vim.opt.relativenumber = false`.
 - `transparency.lua` content is verbatim from `omarchy-nvim` but relocated from `plugin/after/` to `after/plugin/` to use Neovim's actual after-load mechanism. Upstream `omarchy-nvim` still uses the incorrect path.
+- Owned Lua files use 2-space indentation per the shared `.editorconfig` in this repo. Upstream `omarchy-nvim` uses tabs. Contents are otherwise unchanged.
 
 ### Fastfetch
 

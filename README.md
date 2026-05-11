@@ -34,7 +34,7 @@ dotfiles-arch + WSL overlay     → dotfiles-wsl
 - **System Monitor**: [btop](https://github.com/aristocratos/btop)
 - **System Info**: [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 - **Dotfile Management**: [GNU Stow](https://www.gnu.org/software/stow/)
-- **Theme**: [Miasma](https://github.com/xero/miasma.nvim)
+- **Theme**: [Miasma](https://github.com/OldJobobo/miasma.nvim)
 
 ## Package Layout
 

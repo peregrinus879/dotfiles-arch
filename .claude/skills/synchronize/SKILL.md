@@ -15,7 +15,7 @@ Reference repos live under `~/Projects/repos/references/`:
 
 - `omarchy/` - main repo for bash, tmux, starship, git, fastfetch, btop, and editorconfig references
 - `omarchy-pkgs/` - package builds, including the Omarchy Neovim package
-- `miasma.nvim/` - Miasma color scheme source
+- `miasma.nvim/` - Miasma Neovim plugin source (Omarchy uses the `OldJobobo/miasma.nvim` optimized fork)
 - `yazi/` - Yazi reference repo for configuration, theme, and feature changes
 
 ### Official Docs
