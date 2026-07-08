@@ -2,20 +2,22 @@
 
 Headless Arch baseline dotfiles adapted from [Omarchy](https://github.com/basecamp/omarchy). Omarchy, official docs, official package docs, and `DEVIATIONS.md` are the source of truth for default behavior and intentional differences.
 
+**This repo is frozen and reference-only.** It keeps serving the remaining headless host until that machine is retired. It receives no new features and no upstream syncs; apply fixes only when the remaining host requires them. The actively maintained successor is `dotfiles-wsl`, which carries this baseline forward as self-contained WSL Arch dotfiles.
+
 ## Scope
 
-This repo carries the shared Linux baseline for terminal-first headless Arch environments.
+This repo carries the frozen terminal baseline for the remaining headless Arch host.
 
 It owns:
 
-- shared GNU Stow packages for Bash, Git, Neovim, tmux, starship, fastfetch, btop, editorconfig, and Yazi
-- shared helper logic that overlays may enable without changing baseline ownership
-- baseline setup and maintenance docs
+- GNU Stow packages for Bash, Git, Neovim, tmux, starship, fastfetch, btop, editorconfig, and Yazi, as deployed on the remaining host
+- host-specific runbooks: `BACKUP.md`, `INSTALL.md`, and `STRIX-HALO-ROCM.md`
+- baseline setup and maintenance docs, kept for reference
 
 It does not own:
 
-- WSL or Windows-specific behavior
-- host-specific runbooks beyond optional reference material
+- WSL or Windows-specific behavior (owned by `dotfiles-wsl`)
+- any actively maintained baseline; new terminal-baseline work happens in `dotfiles-wsl`
 
 ## Environment
 
@@ -30,7 +32,7 @@ It does not own:
 - `BACKUP.md` - pre-install backup runbook for a headless hub
 - `INSTALL.md` - dual-SSD host install runbook with archinstall and secondary-disk setup
 - `STRIX-HALO-ROCM.md` - optional host-specific guide for ROCm-backed local models on compatible AMD Strix Halo systems
-- `.claude/skills/synchronize/SKILL.md` - repo-specific sync workflow against upstream references
+- `.claude/skills/synchronize/SKILL.md` - retired sync workflow, kept for reference
 
 ## Setup Invariants
 
@@ -42,34 +44,22 @@ It does not own:
 ## Reference Sources
 
 - `DEVIATIONS.md` for upstream GitHub URLs and boundary definitions
-- `.claude/skills/synchronize/SKILL.md` for local reference repo paths and official docs
 - `BACKUP.md` for the pre-install capture that runs before a primary-disk wipe
 - `INSTALL.md` for the bare-metal install and dual-SSD storage layout
 - `STRIX-HALO-ROCM.md` is optional host-specific guidance, not baseline setup
 
-## Skills
-
-- `/synchronize` - sync this baseline against Omarchy references
-
 ## Workflow
 
-- Use `/synchronize` when syncing this baseline against Omarchy references
-- Keep changes within the baseline scope of this repo
-- Keep all intentional differences documented in `DEVIATIONS.md`
-- Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together when ownership, setup, or sync assumptions change
-- Update `BACKUP.md` and `INSTALL.md` together when install or pre-install capture assumptions change
-
-## Future Enhancements
-
-- **Makefile automation**: Wrap stow/unstow/dry-run, `make verify` for symlink and syntax checks, `make clean` for README "Prepare" cleanup steps. Combined stow order across repos: dotfiles-ai, dotfiles-arch, dotfiles-wsl.
-- **ShellCheck**: Makefile target or pre-commit hook covering `bash/.bashrc` and `bash/.config/bash/*`. `shellcheck` is already in the baseline package list.
-- **Windows Terminal drift detection**: Script to checksum tracked `settings.json` against the deployed Windows-side file at `/mnt/c/Users/.../LocalState/settings.json`. Relevant to dotfiles-wsl as well.
+- Do not adopt new upstream changes or add features; this repo is frozen
+- Apply a change only when the remaining host requires a fix, and keep it minimal
+- Keep all intentional differences documented in `DEVIATIONS.md` if a fix lands
+- Update `README.md`, `AGENTS.md`, and `DEVIATIONS.md` together if a fix changes ownership, setup, or documented behavior
+- Direct any shared terminal-baseline improvement to `dotfiles-wsl` instead
 
 ## Maintainer Checklist
 
-1. Review the local reference repos and official docs for upstream changes to owned packages.
-2. Use `/synchronize` or compare manually against the upstream references.
+1. Confirm the change is a fix the remaining host actually needs; otherwise it belongs in `dotfiles-wsl`.
+2. Keep the fix minimal and within the frozen scope.
 3. Confirm every intentional difference is still documented in `DEVIATIONS.md`.
-4. Update `README.md` when package ownership, setup steps, or verification steps change; update `BACKUP.md` and `INSTALL.md` when install or pre-install capture assumptions change.
-5. Confirm the setup invariants still hold: LazyVim starter, `~/.config/git/config.local`, package list, and Stow targets.
-6. Start a fresh shell and Neovim session after structural changes to verify everything still loads cleanly.
+4. Update `README.md`, `BACKUP.md`, or `INSTALL.md` only if the fix invalidates documented steps.
+5. Start a fresh shell and Neovim session on the host after structural changes to verify everything still loads cleanly.

@@ -2,9 +2,9 @@
 
 Headless Arch Linux dotfiles, adapted from [Omarchy](https://github.com/basecamp/omarchy), managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-`dotfiles-arch` carries the shared Linux baseline for terminal-first Arch environments. It keeps Omarchy's terminal tooling and general feel while dropping desktop-specific components that do not apply on a headless machine.
+> **Reference-only.** This repo is frozen. It keeps serving the remaining headless host until that machine is retired, and receives no new features or upstream syncs. The actively maintained successor is [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl), which carries this baseline forward as self-contained WSL Arch dotfiles.
 
-If you also maintain Arch in WSL, use `dotfiles-wsl` as the additive WSL and Windows-specific overlay on top of this baseline.
+`dotfiles-arch` carries the terminal baseline for a headless Arch host. It keeps Omarchy's terminal tooling and general feel while dropping desktop-specific components that do not apply on a headless machine.
 
 ## Repo Family
 
@@ -13,14 +13,14 @@ Derivation model for this repo family:
 ```text
 AI harness configs              → dotfiles-ai
 Omarchy + personal deviations   → dotfiles-omarchy
-Omarchy + headless deviations   → dotfiles-arch
-dotfiles-arch + WSL overlay     → dotfiles-wsl
+Omarchy + WSL deviations        → dotfiles-wsl
+Omarchy + headless deviations   → dotfiles-arch (reference-only)
 ```
 
 - [`dotfiles-ai`](https://github.com/peregrinus879/dotfiles-ai) - AI harness configs: Claude Code and OpenCode settings, shared guidance, and commit workflow
 - [`dotfiles-omarchy`](https://github.com/peregrinus879/dotfiles-omarchy) - Personal Omarchy customizations: Bash overrides, Hyprland bindings, and Yazi
-- [`dotfiles-arch`](https://github.com/peregrinus879/dotfiles-arch) - Shared Arch Linux terminal baseline: Bash, Tmux, Neovim, Starship, Git, Yazi, btop, and fastfetch
-- [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - WSL overlay for dotfiles-arch: Windows Terminal, clipboard integration, and repo auto-refresh
+- [`dotfiles-wsl`](https://github.com/peregrinus879/dotfiles-wsl) - Self-contained WSL Arch dotfiles: terminal baseline plus Windows Terminal, clipboard integration, and OpenCode theme
+- [`dotfiles-arch`](https://github.com/peregrinus879/dotfiles-arch) - Reference-only headless Arch baseline, frozen for the remaining host until retirement
 
 ## Stack
 
@@ -146,7 +146,7 @@ Remove existing files that would conflict with stow. The first block removes tre
 ```bash
 # Tree-folded directory symlinks (from a previous stow)
 rm -f ~/.config/bash ~/.config/btop ~/.config/fastfetch ~/.config/git \
-  ~/.config/nvim/plugin ~/.config/tmux ~/.config/yazi
+  ~/.config/nvim/after ~/.config/tmux ~/.config/yazi
 
 # Individual config files
 rm -f ~/.bashrc ~/.inputrc
@@ -247,7 +247,7 @@ Clone these locally if you plan to use `/synchronize` or compare against upstrea
 - `~/Projects/repos/references/omarchy-pkgs` - upstream package reference repo
 - `~/Projects/repos/references/miasma.nvim` - Miasma theme reference repo
 - `~/Projects/repos/references/yazi` - Yazi reference repo
-- `~/Projects/repos/dotfiles/dotfiles-wsl` - optional WSL overlay built on top of this baseline
+- `~/Projects/repos/dotfiles/dotfiles-wsl` - self-contained WSL sibling that carries this baseline forward
 
 ## Credits
 
