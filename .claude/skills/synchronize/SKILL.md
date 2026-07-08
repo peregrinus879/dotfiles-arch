@@ -1,11 +1,13 @@
 ---
 name: synchronize
-description: Sync this headless Arch baseline against Omarchy references and official docs. Covers the shared Linux packages owned by dotfiles-arch.
+description: Retired sync workflow for the frozen dotfiles-arch reference baseline. Do not run routine upstream syncs; kept for targeted host fixes only.
 ---
 
 # Synchronize
 
-Source configs from reference repos and official docs, compare against `dotfiles-arch`, and apply changes only where they belong in the shared Arch baseline.
+**This repo is frozen and reference-only.** Do not run routine upstream syncs. Use this workflow only when the remaining headless host requires a targeted fix that must be validated against upstream sources. New baseline work happens in `dotfiles-wsl`.
+
+Source configs from reference repos and official docs, compare against `dotfiles-arch`, and apply changes only where they belong in the frozen baseline.
 
 ## Sources
 
@@ -35,10 +37,9 @@ Reference repos live under `~/Projects/repos/references/`:
 
 ## When To Use
 
-- Use this skill when Omarchy or a reference repo changed materially.
-- Use this skill when baseline scope or behavior changed materially.
-- Use this skill when you suspect undocumented drift between this repo and its references.
-- Use this skill before broad sync-oriented doc updates.
+- Use this skill only when a fix required by the remaining host must be checked against upstream references.
+- Do not use this skill to adopt new upstream changes; the repo is frozen.
+- For any shared terminal-baseline improvement, work in `dotfiles-wsl` instead.
 
 ## Workflow
 
